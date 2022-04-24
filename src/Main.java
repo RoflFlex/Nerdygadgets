@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
+        new MainGUI();
         //Hoofdmenu
             //-Order selectereno9iio9io
         //Inpak-robot
