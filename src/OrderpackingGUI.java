@@ -27,8 +27,8 @@ public class OrderpackingGUI extends JFrame{
         setVisible(true);
 
     }
-
-    public static void main(String[] args) {
-        JFrame fr = new OrderpackingGUI();
-    }
+//
+//    public static void main(String[] args) {
+//        JFrame fr = new OrderpackingGUI();
+//    }
 }
