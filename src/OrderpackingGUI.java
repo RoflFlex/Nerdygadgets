@@ -23,7 +23,7 @@ public class OrderpackingGUI extends JFrame{
         setSize(700, 400);
         setLocationRelativeTo(null);
         setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
 
     }

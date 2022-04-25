@@ -39,11 +39,11 @@ public class OrderPick extends JFrame{
         setSize(1000, 700);
         setLocationRelativeTo(null);
         setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new OrderPick();
-    }
+    //public static void main(String[] args) {
+        //new OrderPick();
+    //}
 }

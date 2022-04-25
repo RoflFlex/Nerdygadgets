@@ -20,12 +20,14 @@ public class MainGUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // open de orderpicking window
+                new OrderPick();
             }
         });
         orderPackingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // open de orderpacking window
+                new OrderpackingGUI();
             }
         });
         iButton.addActionListener(new ActionListener() {
