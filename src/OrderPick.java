@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class OrderpickGUI {
+public class OrderPick extends JFrame{
     private JButton button1;
     private JButton button2;
     private JButton button3;
@@ -26,4 +26,24 @@ public class OrderpickGUI {
     private JButton button23;
     private JButton button24;
     private JButton button25;
+    private JButton buttonInfo;
+    private JButton buttonOphalen;
+    private JButton buttonCancel;
+    private JPanel panel;
+    private JPanel panelMain;
+    private JLabel Progress;
+    private JProgressBar progressBar1;
+    public OrderPick(){
+        setContentPane(panelMain);
+        setTitle("Order picking");
+        setSize(1000, 700);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new OrderPick();
+    }
 }
