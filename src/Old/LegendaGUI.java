@@ -1,3 +1,5 @@
+package Old;
+
 import javax.swing.*;
 
 public class LegendaGUI extends JFrame{
