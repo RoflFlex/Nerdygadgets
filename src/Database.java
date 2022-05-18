@@ -36,7 +36,7 @@ public class Database {
     }
 
     private static void openConnection() throws SQLException{
-        if(connection.isClosed()) {
+        if(connection == null || connection.isClosed()) {
 
             connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
         }
