@@ -1,8 +1,6 @@
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 
 public class Database {
@@ -13,9 +11,7 @@ public class Database {
 
     static ArrayList<ArrayList<String>> executeQuery(String query) throws SQLException{
         ArrayList<ArrayList<String>> result = new ArrayList<>();
-        if (connection.isClosed()){
-            openConnection();
-        }
+        openConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet=statement.executeQuery(query);
         ResultSetMetaData rsmd = resultSet.getMetaData();
@@ -29,21 +25,31 @@ public class Database {
             result.add(row);
         }
         closeConnection();
-        return  result;
+        return result;
+    }
+
+    static int executeUpdate(String query) throws SQLException{
+        openConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        closeConnection();
+        return statement.executeUpdate();
     }
 
     private static void openConnection() throws SQLException{
-        connection = DriverManager.getConnection(DB_URL,DB_USERNAME,DB_PASSWORD);
+        if(connection.isClosed()) {
+
+            connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+        }
     }
 
     private static Connection getConnection() throws SQLException {
-        if(connection.isClosed()){
-            openConnection();
-        }
+        openConnection();
         return connection;
     }
     private static void closeConnection() throws SQLException{
-        connection.close();
+        if(!connection.isClosed()){
+            connection.close();
+        }
     }
 }
 //C:\xampp\mysql\data\nerdygadgets
