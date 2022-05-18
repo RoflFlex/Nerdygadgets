@@ -20,45 +20,62 @@ public class Window extends JFrame{
 
     // all elements from the content window
     private JPanel contentWindow;
+    private JTable table1;
 
     // all elements from the order window (ophaal-robot)
     private JPanel orderWindow;
     private JButton informationButton;
+    private JProgressBar progressBar1;
+    private JButton ophalenButton;
+
+    private JPanel grid;
+    private JButton itemButton;
+    private JButton itemButton1;
+    private JButton itemButton2;
+    private JButton itemButton3;
+    private JButton itemButton4;
+    private JButton itemButton5;
+    private JButton itemButton6;
+    private JButton itemButton7;
+    private JButton itemButton8;
+    private JButton itemButton9;
+    private JButton cancelButton;
+    private JButton itemButton10;
+    private JButton itemButton11;
+    private JButton itemButton12;
+    private JButton itemButton13;
+    private JButton itemButton14;
+    private JButton itemButton15;
+    private JButton itemButton16;
+    private JButton itemButton17;
+    private JButton itemButton18;
+    private JButton itemButton19;
+    private JButton itemButton20;
+    private JButton itemButton21;
+    private JButton itemButton22;
+    private JButton itemButton23;
+    private JButton itemButton24;
+
+    private JComboBox comportOrder;
+    private JComboBox algoritmOrder;
 
     // all elements from the packing robot (inpak-robot)
     private JPanel packingWindow;
     private JButton informationButton2;
 
-    // ongeordered:
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
-    private JButton button7;
-    private JButton button8;
-    private JButton button9;
-    private JButton button10;
-    private JButton button11;
-    private JButton button12;
-    private JButton button13;
-    private JButton button14;
-    private JButton button15;
-    private JButton button16;
-    private JButton button17;
-    private JButton button18;
-    private JButton button19;
-    private JButton button20;
-    private JButton button21;
-    private JButton button22;
-    private JButton button23;
-    private JButton button24;
-    private JButton button25;
-    private JTable table1;
-    private JProgressBar progressBar1;
-    private JButton ophalenButton;
-    private JButton cancelButton;
+    private JPanel waitingLine;
+    private JButton itemButton25;
+    private JButton itemButton26;
+    private JButton itemButton29;
+    private JButton itemButton28;
+
+    private JButton boxButton;
+    private JButton boxButton1;
+    private JButton boxButton2;
+    private JButton boxButton3;
+
+    private JComboBox comportPacking;
+    private JComboBox algoritmPacking;
     private JComboBox comboBox1;
 
     public Window(String title){
