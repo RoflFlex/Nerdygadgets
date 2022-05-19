@@ -1,8 +1,11 @@
 package GUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 ///<summary>
 /// the window script handles all the base requirements for what needs to be in on screen.
@@ -88,13 +91,16 @@ public class Window extends JFrame{
         setSize(1500, 844);
 
         // calling set functions for the four panels
-        SetInformationPanel(null);
+        SetInformationPanel("Test build");
         SetContentPanel(null);
         SetOrderPanel();
         SetPackingPanel();
 
         // setting button behaviours
         SetOrderItemBehaviour();
+
+        // setting dropdown behaviour
+        SetItemListeners();
 
         // setting the visibility and close operation
         setLocationRelativeTo(null);
@@ -151,8 +157,28 @@ public class Window extends JFrame{
         progressBar1.setValue(percentage);
     }
 
+    // set table content
+    // currently doesn't work
+    public void SetTabelContent(String[] names, String[][] data){
+        table1 = new JTable(data, names);
+    }
+
+    // get dropdown values
+    public String GetComportOrder(){
+        return comportOrder.getSelectedItem().toString();
+    }
+    public String GetComportPacking(){
+        return comportPacking.getSelectedItem().toString();
+    }
+    public String GetAlgoritmOrder(){
+        return algoritmOrder.getSelectedItem().toString();
+    }
+    public String GetAlgoritmPacking(){
+        return algoritmPacking.getSelectedItem().toString();
+    }
+
     // set behaviour for other functions and what a button does when you press it
-    private void SetOrderItemBehaviour(){
+    private void SetOrderItemBehaviour() {
         itemButtons = new JButton[25];
         itemButtons[0] = itemButton;
         itemButtons[1] = itemButton1;
@@ -184,6 +210,7 @@ public class Window extends JFrame{
         for (JButton button : itemButtons) {
             button.addActionListener(new ActionListener() {
                 private int index = 0;
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     buttonText[index] = button.getText();
@@ -192,5 +219,37 @@ public class Window extends JFrame{
                 }
             });
         }
+    }
+
+    // setting up listeners for dropdown menus
+    private void SetItemListeners(){
+        algoritmOrder.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    System.out.println(e.getItem());
+                }
+            }
+        });
+        comportOrder.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    System.out.println(e.getItem());
+                }
+            }
+        });
+        algoritmPacking.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    System.out.println(e.getItem());
+                }
+            }
+        });
+        comportPacking.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    System.out.println(e.getItem());
+                }
+            }
+        });
     }
 }
