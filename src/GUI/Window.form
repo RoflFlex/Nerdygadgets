@@ -37,14 +37,6 @@
         <properties/>
         <border type="line" title="Bestelling:"/>
         <children>
-          <component id="fa65" class="javax.swing.JTable" binding="table1" default-binding="true">
-            <constraints>
-              <grid row="1" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
-            </constraints>
-            <properties/>
-          </component>
           <component id="89fbb" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="1" indent="0" use-parent-layout="false"/>
@@ -69,6 +61,14 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
+          <component id="4923e" class="javax.swing.JLabel" binding="contentLabel">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Label"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="2a5ff" binding="orderWindow" layout-manager="GridLayoutManager" row-count="5" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -126,6 +126,7 @@
               <model>
                 <item value="Nearist-Insertion"/>
                 <item value="2-Opt"/>
+                <item value="do it yourself"/>
               </model>
             </properties>
           </component>
@@ -395,6 +396,7 @@
               <model>
                 <item value="Refined-Harmonic"/>
                 <item value="Best-Fit"/>
+                <item value="do it yourself"/>
               </model>
             </properties>
           </component>

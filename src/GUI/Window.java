@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 ///<summary>
 /// the window script handles all the base requirements for what needs to be in on screen.
@@ -23,7 +26,7 @@ public class Window extends JFrame{
 
     // all elements from the content window
     private JPanel contentWindow;
-    private JTable table1;
+    private JLabel contentLabel;
     private JComboBox comboBox1;
 
     // all elements from the order window (ophaal-robot)
@@ -85,6 +88,7 @@ public class Window extends JFrame{
     private JComboBox algoritmPacking;
 
     private boolean[] buttons;
+    private Order order;
 
     public Window(String title){
         // setting all necessary window information
@@ -112,6 +116,7 @@ public class Window extends JFrame{
 
         // setting some variables
         buttons = new boolean[]{false, false, false, false};
+        order = new Order(1);
     }
 
     // setup for all that is inside the information panel
@@ -182,12 +187,32 @@ public class Window extends JFrame{
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    order.AddItem(button.getText(), "id", index);
+
                     buttonText[index] = button.getText();
                     System.out.println(buttonText[index]);
                     index++;
                 }
             });
         }
+
+        ophalenButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (order.GetItems() == null)
+                    return;
+
+                String temp = "<html>\n";
+                for(Object[] objects : order.GetItems()){
+                    temp += "Name: " + objects[1] + " | ID: " + objects[2] + " | Location: " + objects[3] + " <br/>\n";
+                }
+                temp += "</html>";
+                contentLabel.setText(temp);
+                comboBox1.addItem(order.getOrderID());
+
+                System.out.println(temp);
+            }
+        });
     }
 
     // setting up listeners for dropdown menus
@@ -196,6 +221,10 @@ public class Window extends JFrame{
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
                     System.out.println(e.getItem());
+                    if (e.getItem().equals("do it yourself")) {
+                        OpenURL();
+                        System.exit(0);
+                    }
                 }
             }
         });
@@ -210,6 +239,10 @@ public class Window extends JFrame{
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
                     System.out.println(e.getItem());
+                    if (e.getItem().equals("do it yourself")) {
+                        OpenURL();
+                        System.exit(0);
+                    }
                 }
             }
         });
@@ -248,7 +281,7 @@ public class Window extends JFrame{
     // set table content
     // currently doesn't work
     public void SetTabelContent(String[] names, String[][] data){
-        table1 = new JTable(data, names);
+        //table1 = new JTable(data, names);
     }
 
     // get dropdown values
@@ -319,5 +352,15 @@ public class Window extends JFrame{
     public void disabledButtons(int buttonID) {
         itemButtons[buttonID].setEnabled(false);
         SetOrderItemText(buttonID, "_______________");
+    }
+
+    private void OpenURL() {
+        try {
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+            }
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }
