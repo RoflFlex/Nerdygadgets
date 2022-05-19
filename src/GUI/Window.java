@@ -309,4 +309,15 @@ public class Window extends JFrame{
         itemButton26.setEnabled(buttons[2]);
         itemButton25.setEnabled(buttons[3]);
     }
+    public void enableButtons(int buttonID, String name){
+        itemButtons[buttonID].setEnabled(true);
+        if (name.length() > 15) {
+            name = name.substring(0, 15);
+        }
+        SetOrderItemText(buttonID, name);
+    }
+    public void disabledButtons(int buttonID) {
+        itemButtons[buttonID].setEnabled(false);
+        SetOrderItemText(buttonID, "_______________");
+    }
 }
