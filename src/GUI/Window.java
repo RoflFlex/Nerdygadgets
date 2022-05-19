@@ -1,14 +1,10 @@
 package GUI;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 ///<summary>
@@ -99,7 +95,6 @@ public class Window extends JFrame{
 
         // calling set functions for the four panels
         SetInformationPanel("Test build");
-        SetContentPanel(null);
         SetOrderPanel();
         SetPackingPanel();
 
@@ -123,11 +118,6 @@ public class Window extends JFrame{
     // setup for all that is inside the information panel
     private void SetInformationPanel(String content){
         information.setText(content);
-    }
-
-    // setup for all that is side the content panel
-    private void SetContentPanel(String content){
-        // do something...
     }
 
     // setup for all that is inside the order panel
@@ -181,7 +171,7 @@ public class Window extends JFrame{
         itemButtons[23] = itemButton23;
         itemButtons[24] = itemButton24;
 
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < 25; i++) {
             int finalI = i;
             itemButtons[i].addActionListener(new ActionListener() {
                 @Override
@@ -203,10 +193,23 @@ public class Window extends JFrame{
                 NewOrder(orders.size() + 1);
             }
         });
+        cancelButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateOrders();
+            }
+        });
     }
 
     private void SetContentText(int id){
-        id--;
+        int index = 0;
+        for(Order order : orders){
+            int temp = order.getOrderID();
+            if (temp == id){
+                id = orders.indexOf(order);
+                break;
+            }
+        }
         String temp = "<html>\n";
         for(Object[] objects : orders.get(id).GetItems()){
             temp += "Name: " + objects[1] + " | Location: " + objects[3] + " <br/>\n";
@@ -224,7 +227,7 @@ public class Window extends JFrame{
                 if(e.getStateChange()==ItemEvent.SELECTED){
                     //System.out.println(e.getItem());
                     if (e.getItem().equals("do it yourself")) {
-                        OpenURL();
+                        new EasterEgg();
                         System.exit(0);
                     }
                 }
@@ -242,7 +245,7 @@ public class Window extends JFrame{
                 if(e.getStateChange()==ItemEvent.SELECTED){
                     //System.out.println(e.getItem());
                     if (e.getItem().equals("do it yourself")) {
-                        OpenURL();
+                        new EasterEgg();
                         System.exit(0);
                     }
                 }
@@ -282,6 +285,12 @@ public class Window extends JFrame{
 
         orders.add(order);
         order = new Order(orders.size() + 1);
+    }
+
+    // call ones the top order is finished
+    public void UpdateOrders(){
+        comboBox1.removeItemAt(1);
+        orders.remove(0);
     }
 
     // set button text based on the number you give it
@@ -367,15 +376,5 @@ public class Window extends JFrame{
     public void disabledButtons(int buttonID) {
         itemButtons[buttonID].setEnabled(false);
         SetOrderItemText(buttonID, "_______________");
-    }
-
-    private void OpenURL() {
-        try {
-            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
-            }
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
     }
 }
