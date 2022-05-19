@@ -9,6 +9,7 @@ import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 ///<summary>
 /// the window script handles all the base requirements for what needs to be in on screen.
@@ -64,7 +65,6 @@ public class Window extends JFrame{
     private JButton itemButton24;
 
     private JButton[] itemButtons;
-    private String[] buttonText;
 
     private JComboBox comportOrder;
     private JComboBox algoritmOrder;
@@ -89,6 +89,7 @@ public class Window extends JFrame{
 
     private boolean[] buttons;
     private Order order;
+    private ArrayList<Order> orders = new ArrayList<Order>();
 
     public Window(String title){
         // setting all necessary window information
@@ -116,7 +117,7 @@ public class Window extends JFrame{
 
         // setting some variables
         buttons = new boolean[]{false, false, false, false};
-        order = new Order(1);
+        NewOrder(1);
     }
 
     // setup for all that is inside the information panel
@@ -180,18 +181,12 @@ public class Window extends JFrame{
         itemButtons[23] = itemButton23;
         itemButtons[24] = itemButton24;
 
-        buttonText = new String[25];
-        for (JButton button : itemButtons) {
-            button.addActionListener(new ActionListener() {
-                private int index = 0;
-
+        for (int i = 0; i < 24; i++) {
+            int finalI = i;
+            itemButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    order.AddItem(button.getText(), "id", index);
-
-                    buttonText[index] = button.getText();
-                    System.out.println(buttonText[index]);
-                    index++;
+                    order.AddItem(itemButtons[finalI].getText(), "id", finalI);
                 }
             });
         }
@@ -202,17 +197,24 @@ public class Window extends JFrame{
                 if (order.GetItems() == null)
                     return;
 
-                String temp = "<html>\n";
-                for(Object[] objects : order.GetItems()){
-                    temp += "Name: " + objects[1] + " | ID: " + objects[2] + " | Location: " + objects[3] + " <br/>\n";
-                }
-                temp += "</html>";
-                contentLabel.setText(temp);
                 comboBox1.addItem(order.getOrderID());
 
-                System.out.println(temp);
+                orders.add(order);
+                NewOrder(orders.size() + 1);
             }
         });
+    }
+
+    private void SetContentText(int id){
+        id--;
+        String temp = "<html>\n";
+        for(Object[] objects : orders.get(id).GetItems()){
+            temp += "Name: " + objects[1] + " | Location: " + objects[3] + " <br/>\n";
+        }
+        temp += "</html>";
+        contentLabel.setText(temp);
+
+        System.out.println(temp);
     }
 
     // setting up listeners for dropdown menus
@@ -220,7 +222,7 @@ public class Window extends JFrame{
         algoritmOrder.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
-                    System.out.println(e.getItem());
+                    //System.out.println(e.getItem());
                     if (e.getItem().equals("do it yourself")) {
                         OpenURL();
                         System.exit(0);
@@ -231,14 +233,14 @@ public class Window extends JFrame{
         comportOrder.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
-                    System.out.println(e.getItem());
+                    //System.out.println(e.getItem());
                 }
             }
         });
         algoritmPacking.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
-                    System.out.println(e.getItem());
+                    //System.out.println(e.getItem());
                     if (e.getItem().equals("do it yourself")) {
                         OpenURL();
                         System.exit(0);
@@ -249,23 +251,42 @@ public class Window extends JFrame{
         comportPacking.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
-                    System.out.println(e.getItem());
+                    //System.out.println(e.getItem());
                 }
             }
         });
         comboBox1.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
-                    System.out.println(e.getItem());
+                    //System.out.println(e.getItem());
+                    try {
+                        int id = Integer.parseInt(e.getItem().toString());
+                        SetContentText(id);
+                    } catch (NumberFormatException ex) {
+                        System.out.println(e.getItem() + " does not contain an integer");
+                    }
                 }
             }
         });
     }
 
+    // three functions to make new orders, use for database connection
+    public void NewOrder(int id){
+        order = new Order(id);
+    }
+    public void AddOrder(String itemName, String itemID, int rackPlacement){
+        order.AddItem(itemName, itemID, rackPlacement);
+    }
+    public void FinishOrder(){
+        comboBox1.addItem(order.getOrderID());
+
+        orders.add(order);
+        order = new Order(orders.size() + 1);
+    }
+
     // set button text based on the number you give it
     public void SetOrderItemText(int number, String text){
         itemButtons[number].setText(text);
-        buttonText[number] = text;
     }
 
     // get button text bases on the number you give it
@@ -276,12 +297,6 @@ public class Window extends JFrame{
     // set progress bar percentage from 0-100
     public void SetProgressBar(int percentage){
         progressBar1.setValue(percentage);
-    }
-
-    // set table content
-    // currently doesn't work
-    public void SetTabelContent(String[] names, String[][] data){
-        //table1 = new JTable(data, names);
     }
 
     // get dropdown values

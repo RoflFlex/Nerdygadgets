@@ -44,10 +44,6 @@
             <properties>
               <model>
                 <item value="OrderID"/>
-                <item value="1072 (BEZIG)"/>
-                <item value="1073"/>
-                <item value="1074"/>
-                <item value="1075"/>
               </model>
             </properties>
           </component>
@@ -66,7 +62,7 @@
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Label"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
