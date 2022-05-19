@@ -24,6 +24,7 @@ public class Window extends JFrame{
     // all elements from the content window
     private JPanel contentWindow;
     private JTable table1;
+    private JComboBox comboBox1;
 
     // all elements from the order window (ophaal-robot)
     private JPanel orderWindow;
@@ -82,7 +83,8 @@ public class Window extends JFrame{
 
     private JComboBox comportPacking;
     private JComboBox algoritmPacking;
-    private JComboBox comboBox1;
+
+    private boolean[] buttons;
 
     public Window(String title){
         // setting all necessary window information
@@ -107,6 +109,9 @@ public class Window extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
+
+        // setting some variables
+        buttons = new boolean[]{false, false, false, false};
     }
 
     // setup for all that is inside the information panel
@@ -139,42 +144,6 @@ public class Window extends JFrame{
                 SetInformationPanel("information about packing panel");
             }
         });
-    }
-
-    // set button text based on the number you give it
-    public void SetOrderItemText(int number, String text){
-        itemButtons[number].setText(text);
-        buttonText[number] = text;
-    }
-
-    // get button text bases on the number you give it
-    public String GetOrderItemText(int number){
-        return itemButtons[number].getText();
-    }
-
-    // set progress bar percentage from 0-100
-    public void SetProgressBar(int percentage){
-        progressBar1.setValue(percentage);
-    }
-
-    // set table content
-    // currently doesn't work
-    public void SetTabelContent(String[] names, String[][] data){
-        table1 = new JTable(data, names);
-    }
-
-    // get dropdown values
-    public String GetComportOrder(){
-        return comportOrder.getSelectedItem().toString();
-    }
-    public String GetComportPacking(){
-        return comportPacking.getSelectedItem().toString();
-    }
-    public String GetAlgoritmOrder(){
-        return algoritmOrder.getSelectedItem().toString();
-    }
-    public String GetAlgoritmPacking(){
-        return algoritmPacking.getSelectedItem().toString();
     }
 
     // set behaviour for other functions and what a button does when you press it
@@ -251,5 +220,93 @@ public class Window extends JFrame{
                 }
             }
         });
+        comboBox1.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    System.out.println(e.getItem());
+                }
+            }
+        });
+    }
+
+    // set button text based on the number you give it
+    public void SetOrderItemText(int number, String text){
+        itemButtons[number].setText(text);
+        buttonText[number] = text;
+    }
+
+    // get button text bases on the number you give it
+    public String GetOrderItemText(int number){
+        return itemButtons[number].getText();
+    }
+
+    // set progress bar percentage from 0-100
+    public void SetProgressBar(int percentage){
+        progressBar1.setValue(percentage);
+    }
+
+    // set table content
+    // currently doesn't work
+    public void SetTabelContent(String[] names, String[][] data){
+        table1 = new JTable(data, names);
+    }
+
+    // get dropdown values
+    public String GetComportOrder(){
+        return comportOrder.getSelectedItem().toString();
+    }
+    public String GetComportPacking(){
+        return comportPacking.getSelectedItem().toString();
+    }
+    public String GetAlgoritmOrder(){
+        return algoritmOrder.getSelectedItem().toString();
+    }
+    public String GetAlgoritmPacking(){
+        return algoritmPacking.getSelectedItem().toString();
+    }
+
+    // call to add a packing item to the line
+    public void AddPackingItem(String text){
+        if (!buttons[0]){
+            itemButton28.setEnabled(true);
+            itemButton28.setText(text);
+            buttons[0] = true;
+        }
+        else if (!buttons[1]){
+            itemButton29.setEnabled(true);
+            itemButton29.setText(text);
+            buttons[1] = true;
+        }
+        else if (!buttons[2]){
+            itemButton26.setEnabled(true);
+            itemButton26.setText(text);
+            buttons[2] = true;
+        }
+        else if (!buttons[3]){
+            itemButton25.setEnabled(true);
+            itemButton25.setText(text);
+            buttons[3] = true;
+        }
+        else{
+            System.out.println("Line is currently full");
+        }
+    }
+
+    // call ones an item get removed from the line (if it gets placed in a box)
+    public void MovePackingItems(){
+        itemButton28.setText(itemButton29.getText());
+        itemButton29.setText(itemButton26.getText());
+        itemButton26.setText(itemButton25.getText());
+        itemButton25.setText("_______");
+
+        for (int i = 0; i < 3; i++){
+            buttons[i] = buttons[i + 1];
+        }
+        buttons[3] = false;
+
+        itemButton28.setEnabled(buttons[0]);
+        itemButton29.setEnabled(buttons[1]);
+        itemButton26.setEnabled(buttons[2]);
+        itemButton25.setEnabled(buttons[3]);
     }
 }

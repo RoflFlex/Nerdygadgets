@@ -411,7 +411,8 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Item"/>
+                  <enabled value="false"/>
+                  <text value="_______"/>
                 </properties>
               </component>
               <component id="fbddd" class="javax.swing.JButton" binding="itemButton26" default-binding="true">
@@ -419,7 +420,8 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Item"/>
+                  <enabled value="false"/>
+                  <text value="_______"/>
                 </properties>
               </component>
               <component id="fcfc3" class="javax.swing.JButton" binding="itemButton29" default-binding="true">
@@ -427,7 +429,8 @@
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Item"/>
+                  <enabled value="false"/>
+                  <text value="_______"/>
                 </properties>
               </component>
               <component id="2d40d" class="javax.swing.JButton" binding="itemButton28" default-binding="true">
@@ -435,7 +438,8 @@
                   <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Item"/>
+                  <enabled value="false"/>
+                  <text value="_______"/>
                 </properties>
               </component>
             </children>
