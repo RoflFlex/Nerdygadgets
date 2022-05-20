@@ -6,6 +6,7 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import javax.swing.text.DefaultCaret;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class MainFrame extends JFrame implements ActionListener, PopupMenuListen
     private OutputStream outputStream1;
     private String baudRate = "9600", dataBits = "8", stopBits = "1", parityBits = "NO_PARITY", endLine = "None";
     private String dataBuffer;
+    private boolean removeNull = false;
 
     public MainFrame(){
         setContentPane(Cum);
@@ -33,7 +35,8 @@ public class MainFrame extends JFrame implements ActionListener, PopupMenuListen
         comboBoxComport.addPopupMenuListener(this);
         comboBoxComport.setEnabled(true);
         progressBarComStatus.setValue(0);
-        butLicht.setEnabled(false);
+        butLicht.setVisible(false);
+        //butLicht.setEnabled(false);
         butOpen.setEnabled(true);
         butClose.setEnabled(false);
         butSend.setEnabled(false);
@@ -42,7 +45,12 @@ public class MainFrame extends JFrame implements ActionListener, PopupMenuListen
         butClose.addActionListener(this);
         butOpen.addActionListener(this);
         JTextArea textArea= new JTextArea();
+
+        DefaultCaret caret = (DefaultCaret)textAreaIncomingData.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+
         scrolPane= new JScrollPane(textArea);
+        scrolPane.setAutoscrolls(true);
         scrolPane. setVerticalScrollBarPolicy( JScrollPane. VERTICAL_SCROLLBAR_ALWAYS );
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
@@ -132,11 +140,19 @@ public class MainFrame extends JFrame implements ActionListener, PopupMenuListen
 
             @Override
             public void serialEvent(SerialPortEvent serialPortEvent) {
-                System.out.println(serialPortEvent.getEventType());
+                //System.out.println(serialPortEvent.getEventType());
                 byte []newData = serialPortEvent.getReceivedData();
                 for (int i = 0; i < newData.length; i++){
-                    dataBuffer += (char)newData[i];
-                    textAreaIncomingData.setText(dataBuffer);
+                        dataBuffer += (char)newData[i];
+                        if (!removeNull){
+                            dataBuffer = "";
+                            removeNull = true;
+                        }
+                        textAreaIncomingData.setText(dataBuffer);
+                        if (dataBuffer.length() >= 200) {
+                            dataBuffer = dataBuffer.substring(100);
+                        }
+
                 }
 //                dataBuffer += "\n";
             }
