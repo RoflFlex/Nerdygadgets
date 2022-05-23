@@ -7,6 +7,7 @@ public class Main {
         for (int i = 0; i < 25; i++) {
             window.disabledButtons(i);
         }
+        Database.getOrders(window);
         new ItemRack(window);
     }
 }

@@ -1,3 +1,5 @@
+import GUI.Window;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -49,6 +51,35 @@ public class Database {
     private static void closeConnection() throws SQLException{
         if(!connection.isClosed()){
             connection.close();
+        }
+    }
+    public static void getOrders(Window window){
+        ArrayList<ArrayList<String>> Order = new ArrayList<>();
+        try {
+            Order = Database.executeQuery("SELECT OrderID FROM nerdygadgets.orders\n" +
+                    "where PickingCompletedWhen IS NULL\n" +
+                    "order by OrderID desc;");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (ArrayList<String> Order1: Order) {
+            for (String OrderID:Order1) {
+                if (!(OrderID == null)) {
+                    window.NewOrder(Integer.parseInt(OrderID));
+                    ArrayList<ArrayList<String>> OrderLine = new ArrayList<>();
+                    try {
+                        OrderLine = Database.executeQuery("SELECT OrderID, StockItemID, Description FROM nerdygadgets.orderlines\n" +
+                                "where OrderId = " + OrderID + "\n" +
+                                "order by orderlineID desc;");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    for (ArrayList<String> OrderLine1: OrderLine) {
+                            window.AddOrder(OrderLine1.get(2), OrderLine1.get(1), 5);
+                            window.FinishOrder();
+                    }
+                }
+            }
         }
     }
 }

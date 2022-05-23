@@ -11,38 +11,38 @@ public class Test {
         double startTime = System.currentTimeMillis();
         ArrayList<Point2D> cities = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < 50 ; i++){
+        for (int i = 0; i < 10 ; i++){
             Point2D point = new Point2D.Float(random.nextInt(1,6), random.nextInt(1,6));
             if(!cities.contains(point)){
                 cities.add(point);
             }//alter file name here.
         }
-        System.out.println(cities);
-        System.out.println(cities.size());
+       // System.out.println(cities);
+        //System.out.println(cities.size());
         ArrayList<Point2D> nearestN;
         ArrayList<Point2D> result;
         ArrayList<Point2D> city ;
 //        System.out.println(Length.routeLength(cities));
 
         city = NearestInsertion.nearestInsertion(cities);
-        System.out.println(Length.routeLength(city));
-        System.out.println(city.size());
-        System.out.println(city);
+        System.out.println("Length of using Nearest Insertion " + Length.routeLength(city));
+        //System.out.println(city.size());
+        //System.out.println(city);
 
         result = TwoOpt.alternate(cities);
-        System.out.println(Length.routeLength(result));
-        System.out.println(result.size());
-        System.out.println(result);
+        System.out.println("Length of using 2-Opt " + Length.routeLength(result));
+        //System.out.println(result.size());
+        //System.out.println(result);
 
         nearestN = NearestNeighbour.nearestNeighbour(cities);
-        System.out.println(Length.routeLength(nearestN));
-        System.out.println(nearestN.size());
-        System.out.println(nearestN);
+        System.out.println("Length of using Nearest Neighbour " + Length.routeLength(nearestN));
+        //System.out.println(nearestN.size());
+        //System.out.println(nearestN);
 
         result = TwoOpt.alternate(city);
-        System.out.println(Length.routeLength(result));
-        System.out.println(result.size());
-        System.out.println(result);
+        System.out.println("Length of using 2-Opt + Nearest Insertion " + Length.routeLength(result));
+        //System.out.println(result.size());
+        //System.out.println(result);
 
 //        city = TwoOpt.alternate(cities);
 //        System.out.println(Length.routeLength(city));

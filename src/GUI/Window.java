@@ -278,6 +278,9 @@ public class Window extends JFrame{
         order = new Order(id);
     }
     public void AddOrder(String itemName, String itemID, int rackPlacement){
+        if (itemName.length() > 15) {
+            itemName = itemName.substring(0, 15);
+        }
         order.AddItem(itemName, itemID, rackPlacement);
     }
     public void FinishOrder(){
