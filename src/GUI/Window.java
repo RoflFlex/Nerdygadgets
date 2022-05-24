@@ -1,7 +1,11 @@
 package GUI;
 
+import Algoritmes.TSP.NearestNeighbour;
 import Algoritmes.TSP.OwnChoice;
 import Algoritmes.TSP.TSPAlgorithm;
+import Algoritmes.TSP.TwoOpt;
+import com.fazecast.jSerialComm.SerialPort;
+import Robots.Robot;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -23,6 +27,9 @@ import java.util.ArrayList;
 public class Window extends JFrame implements ActionListener, PopupMenuListener {
     private JPanel window;
     private TSPAlgorithm tspAlgorithm = new OwnChoice(null);
+
+    private Robot orderRobot;
+    private Robot packingRobot;
 
     // all elements from the information window
     private JPanel informationWindow;
@@ -70,7 +77,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener 
     private JButton[] itemButtons;
 
     private JComboBox comportOrder;
-    private JComboBox algoritmOrder;
+    private JComboBox tspAlgorithmComboBox;
 
     // all elements from the packing robot (inpak-robot)
     private JPanel packingWindow;
@@ -88,7 +95,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener 
     private JButton boxButton3;
 
     private JComboBox comportPacking;
-    private JComboBox algoritmPacking;
+    private JComboBox bppAlgorithmComboBox;
 
     private boolean[] buttons;
     private Order order;
@@ -111,6 +118,11 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener 
         // setting dropdown behaviour
         SetItemListeners();
 
+
+        setComportOrder();
+        setBppAlgorithmComboBox();
+        setComportPacking();
+        setTspAlgorithmComboBox();
         // setting the visibility and close operation
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -120,6 +132,23 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener 
         // setting some variables
         buttons = new boolean[]{false, false, false, false};
         NewOrder(1);
+
+    }
+
+    private void setComportOrder(){
+        comportOrder.addPopupMenuListener(this);
+    }
+
+    private void setTspAlgorithmComboBox(){
+        tspAlgorithmComboBox.addPopupMenuListener(this);
+    }
+
+    private void setBppAlgorithmComboBox(){
+        bppAlgorithmComboBox.addPopupMenuListener(this);
+    }
+
+    private void setComportPacking(){
+        comportPacking.addPopupMenuListener(this);
     }
 
     // setup for all that is inside the information panel
@@ -198,7 +227,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener 
 
     // setting up listeners for dropdown menus
     private void SetItemListeners(){
-        algoritmOrder.addItemListener(new ItemListener(){
+        tspAlgorithmComboBox.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
                     //System.out.println(e.getItem());
@@ -216,7 +245,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener 
                 }
             }
         });
-        algoritmPacking.addItemListener(new ItemListener(){
+        bppAlgorithmComboBox.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
                     //System.out.println(e.getItem());
@@ -330,10 +359,10 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener 
         return comportPacking.getSelectedItem().toString();
     }
     public String GetAlgoritmOrder(){
-        return algoritmOrder.getSelectedItem().toString();
+        return tspAlgorithmComboBox.getSelectedItem().toString();
     }
     public String GetAlgoritmPacking(){
-        return algoritmPacking.getSelectedItem().toString();
+        return bppAlgorithmComboBox.getSelectedItem().toString();
     }
 
     // call to add a packing item to the line
@@ -442,16 +471,73 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener 
 
     @Override
     public void popupMenuWillBecomeVisible(PopupMenuEvent popupMenuEvent) {
+        if(comportOrder == popupMenuEvent.getSource()){
+            comportOrder.removeAllItems();
+            comportOrder.addItem("COMPORT");
+            SerialPort portList[] =  SerialPort.getCommPorts();
+            for(SerialPort port : portList){
+                comportOrder.addItem(port.getSystemPortName());
+            }
+            if(packingRobot != null){
+                comportOrder.remove(packingRobot.getSerialPortInt()+1);
+            }
+        }
+        if(comportPacking == popupMenuEvent.getSource()){
+            comportPacking.removeAllItems();
+            comportPacking.addItem("COMPORT");
+            SerialPort portList[] =  SerialPort.getCommPorts();
 
+            for(SerialPort port : portList){
+                comportPacking.addItem(port.getSystemPortName());
+            }
+
+            if(orderRobot != null){
+                comportPacking.removeItemAt(orderRobot.getSerialPortInt()+1);
+            }
+        }
     }
 
     @Override
     public void popupMenuWillBecomeInvisible(PopupMenuEvent popupMenuEvent) {
+        if(popupMenuEvent.getSource() == comportOrder ){
+            int comport = comportOrder.getSelectedIndex();
+            if(comportOrder.getSelectedIndex() != 0){
+                orderRobot = new Robot(comport-1);
+                if(orderRobot.getTextToPrint().equals("Succes")){
+                    comportOrder.setEnabled(false);
+                }
+            }
 
+        }
+        if(popupMenuEvent.getSource() == comportPacking){
+            int comport = comportPacking.getSelectedIndex();
+            if(comportOrder.getSelectedIndex() != 0){
+                packingRobot = new Robot(comport-1);
+                if(packingRobot.getTextToPrint().equals("Succes")){
+                    comportPacking.setEnabled(false);
+                }
+            }
+        }
+        if(popupMenuEvent.getSource() == tspAlgorithmComboBox){
+            int tsp = tspAlgorithmComboBox.getSelectedIndex();
+            if(tsp == 0){
+                tspAlgorithm = new NearestNeighbour(null);
+            }
+            if(tsp == 1){
+                tspAlgorithm = new TwoOpt();
+            }
+            if (tsp == 2){
+                tspAlgorithm = new NearestNeighbour(null);
+            }
+            if(tsp == 3){
+                tspAlgorithm = new OwnChoice(null);
+            }
+            System.out.println(tspAlgorithm.getClass());
+        }
     }
 
     @Override
     public void popupMenuCanceled(PopupMenuEvent popupMenuEvent) {
-
+        System.out.println("ss");
     }
 }

@@ -7,11 +7,12 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public abstract class Robot {
+public class Robot {
     private final String baudRate = "9600";
     private final String dataBits = "8";
     private final String stopBits = "1";
     private final String parityBits = "NO_PARITY";
+    private int serialPortInt;
     private String dataBuffer;
     private SerialPort serialPort;
     private OutputStream outputStream;
@@ -19,6 +20,7 @@ public abstract class Robot {
 
     public Robot(int serialPort){
         try{
+            this.serialPortInt = serialPort;
             SerialPort portLists[] = SerialPort.getCommPorts();
             this.serialPort = portLists[serialPort];
             //System.out.println(comboBoxComport.getSelectedIndex());
@@ -27,10 +29,15 @@ public abstract class Robot {
             this.serialPort.setNumStopBits(Integer.parseInt(stopBits));
             this.serialPort.setParity(0);
             this.serialPort.openPort();
+//            System.out.println(serialPort);
             textToPrint = "Succes";
         }catch (ArrayIndexOutOfBoundsException e){
                 textToPrint = "Canceled";
         }
+    }
+
+    public int getSerialPortInt() {
+        return serialPortInt;
     }
 
     public boolean sendInformation(String dataToSend){
