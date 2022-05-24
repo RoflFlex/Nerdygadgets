@@ -300,10 +300,10 @@ public class Window extends JFrame{
         order.AddItem(itemName, itemID, rackPlacement);
     }
     public void FinishOrder(){
-        if (orders.size() < 1){
-            System.out.println("Can't add empty order, select items first");
-            return;
-        }
+        //if (orders.size() < 1){
+            //System.out.println("Can't add empty order, select items first");
+            //return;
+        //}
         comboBox1.addItem(order.getOrderID());
 
         orders.add(order);
