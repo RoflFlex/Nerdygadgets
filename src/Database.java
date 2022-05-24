@@ -75,8 +75,8 @@ public class Database {
                         e.printStackTrace();
                     }
                     for (ArrayList<String> OrderLine1: OrderLine) {
-                            window.AddOrder(OrderLine1.get(2), OrderLine1.get(1), 5);
-                            window.FinishOrder();
+                        window.AddOrder(OrderLine1.get(2), OrderLine1.get(1), 5);
+                        window.FinishOrder();
                     }
                 }
             }
