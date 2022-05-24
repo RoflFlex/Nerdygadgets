@@ -37,6 +37,7 @@ public class OrderManager {
             public void run () {
                 Order order = window.GetSelectedOrder();
                 if (order != null){
+                    myTimer.cancel();
                     SetOrder(order);
                     GetPath();
                 }

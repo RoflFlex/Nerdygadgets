@@ -251,13 +251,14 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener 
 
     // get the selected order for processing
     public Order GetSelectedOrder(){
-        String id = (String)comboBox1.getSelectedItem();
-        if (id.equals("OrderID")){
+        System.out.println(comboBox1.getSelectedItem().getClass());
+        if (comboBox1.getSelectedItem().equals("OrderID")){
             return null;
         }
-        int indexID = Integer.parseInt(id);
+        Integer id = (Integer)comboBox1.getSelectedItem();
+        System.out.println(id);
         for (Order temp : orders){
-            if (temp.getOrderID() == indexID){
+            if (temp.getOrderID() == id){
                 return temp;
             }
         }
@@ -281,14 +282,19 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener 
         order.AddItem(itemName, itemID, rackPlacement);
     }
     public void FinishOrder(){
-        //if (orders.size() < 1){
-            //System.out.println("Can't add empty order, select items first");
-            //return;
-        //}
-        comboBox1.addItem(order.getOrderID());
-
-        orders.add(order);
+        if (CheckOrders()){
+            comboBox1.addItem(order.getOrderID());
+            orders.add(order);
+        }
         order = new Order(orders.size() + 1);
+    }
+    private boolean CheckOrders(){
+        int id = order.getOrderID();
+        for (Order order : orders){
+            if (order.getOrderID() == id)
+                return false;
+        }
+        return true;
     }
 
     // call ones the top order is finished
