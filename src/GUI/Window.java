@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -184,13 +185,7 @@ public class Window extends JFrame{
         ophalenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (order.GetItems() == null)
-                    return;
-
-                comboBox1.addItem(order.getOrderID());
-
-                orders.add(order);
-                NewOrder(orders.size() + 1);
+                FinishOrder();
             }
         });
         cancelButton.addActionListener(new ActionListener(){
@@ -273,6 +268,27 @@ public class Window extends JFrame{
         });
     }
 
+    // get the selected order for processing
+    public Order GetSelectedOrder(){
+        String id = (String)comboBox1.getSelectedItem();
+        if (id.equals("OrderID")){
+            return null;
+        }
+        int indexID = Integer.parseInt(id);
+        for (Order temp : orders){
+            if (temp.getOrderID() == indexID){
+                return temp;
+            }
+        }
+        System.out.println("no order found that matched that ID");
+        return null;
+    }
+
+    // set color of button by index
+    public void SetColor(int index, Color color){
+        itemButtons[index].setForeground(color);
+    }
+
     // three functions to make new orders, use for database connection
     public void NewOrder(int id){
         order = new Order(id);
@@ -284,6 +300,10 @@ public class Window extends JFrame{
         order.AddItem(itemName, itemID, rackPlacement);
     }
     public void FinishOrder(){
+        if (orders.size() < 1){
+            System.out.println("Can't add empty order, select items first");
+            return;
+        }
         comboBox1.addItem(order.getOrderID());
 
         orders.add(order);
@@ -292,6 +312,10 @@ public class Window extends JFrame{
 
     // call ones the top order is finished
     public void UpdateOrders(){
+        if (orders.size() < 1){
+            System.out.println("can't remove NULL item, add one first");
+            return;
+        }
         comboBox1.removeItemAt(1);
         orders.remove(0);
     }
