@@ -3,9 +3,15 @@ package Algoritmes.TSP;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-public class NearestInsertion {
+public class NearestInsertion extends TSPAlgorithm{
 
-    protected static ArrayList<Point2D> nearestInsertion(ArrayList<Point2D> cities){
+
+    public NearestInsertion(ArrayList<Point2D> points) {
+        super(points);
+    }
+
+    public void alternate(){
+        ArrayList<Point2D> cities = getPoints();
         ArrayList<Point2D> newTour = new ArrayList<>();
         double dist;
         newTour.add(cities.get(0));
@@ -37,10 +43,10 @@ public class NearestInsertion {
         }
 
         cities = newTour;
-        return cities;
+        setPoints(cities);
     }
 
-    private static double distanceToLine(Point2D p, Point2D endA, Point2D endZ) {
+    private double distanceToLine(Point2D p, Point2D endA, Point2D endZ) {
         /* Geometry here is:
          * - A and B are points on ends of the line
          * - C is a point, distance from which to AB is to be calculated

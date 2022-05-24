@@ -8,9 +8,14 @@ return the nearest neighbour result.
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-public class NearestNeighbour {
+public class NearestNeighbour extends TSPAlgorithm {
 
-    protected static ArrayList<Point2D> nearestNeighbour(ArrayList<Point2D> cities) {
+    public NearestNeighbour(ArrayList<Point2D> points) {
+        super(points);
+    }
+
+    public void alternate() {
+        ArrayList<Point2D> cities = getPoints();
 
         ArrayList<Point2D> result = new ArrayList<>(); //holds final result.
         Point2D currentCity = cities.remove(0); //set current city to first array item.
@@ -42,6 +47,6 @@ public class NearestNeighbour {
             cities.remove(closestCity);
             result.add(currentCity);
         }
-        return result;
+        setPoints(result);
     }
 }
