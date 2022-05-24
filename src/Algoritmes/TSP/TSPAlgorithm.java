@@ -7,13 +7,14 @@ public abstract class TSPAlgorithm {
     private ArrayList<Point2D> points;
 
 
-    public TSPAlgorithm(ArrayList<Point2D> points){
+    protected TSPAlgorithm(ArrayList<Point2D> points){
         this.points = points;
         if(points != null){
             alternate();
         }
 
     }
+
 
     public ArrayList<Point2D> getPoints() {
         ArrayList<Point2D> result = new ArrayList<>();

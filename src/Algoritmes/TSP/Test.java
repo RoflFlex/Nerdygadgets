@@ -26,9 +26,9 @@ public class Test {
         System.out.println("Two Opt: " + algorithm.routeLength());
         algorithm = new NearestInsertion(cities);
         System.out.println("Nearest Insertion: " + algorithm.routeLength());
-        opt.setPoints(algorithm.getPoints());
-        opt.alternate();
-        System.out.println("Eigen optie:" + opt.routeLength());
+
+        algorithm = new OwnChoice(cities);
+        System.out.println("Eigen optie:" + algorithm.routeLength());
 
 //        city = TwoOpt.alternate(cities);
 //        System.out.println(Length.routeLength(city));

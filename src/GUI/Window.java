@@ -1,6 +1,11 @@
 package GUI;
 
+import Algoritmes.TSP.OwnChoice;
+import Algoritmes.TSP.TSPAlgorithm;
+
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +20,9 @@ import java.util.ArrayList;
 /// in case an optimisation is found for splitting the current four panels into their own scripts please do so.
 ///</summary>
 
-public class Window extends JFrame{
+public class Window extends JFrame implements ActionListener, PopupMenuListener {
     private JPanel window;
+    private TSPAlgorithm tspAlgorithm = new OwnChoice(null);
 
     // all elements from the information window
     private JPanel informationWindow;
@@ -124,23 +130,13 @@ public class Window extends JFrame{
     // setup for all that is inside the order panel
     private void SetOrderPanel(){
         // setup for information button
-        informationButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SetInformationPanel("information about order panel");
-            }
-        });
+        informationButton.addActionListener(this);
     }
 
     // setup for all that is inside the packing panel
     private void SetPackingPanel(){
         // setup for information button
-        informationButton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SetInformationPanel("information about packing panel");
-            }
-        });
+        informationButton2.addActionListener(this);
     }
 
     // set behaviour for other functions and what a button does when you press it
@@ -173,27 +169,12 @@ public class Window extends JFrame{
         itemButtons[24] = itemButton24;
 
         for (int i = 0; i < 25; i++) {
-            int finalI = i;
-            itemButtons[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    order.AddItem(itemButtons[finalI].getText(), "id", finalI);
-                }
-            });
+//            int finalI = i;
+            itemButtons[i].addActionListener(this);
         }
 
-        ophalenButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FinishOrder();
-            }
-        });
-        cancelButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                UpdateOrders();
-            }
-        });
+        ophalenButton.addActionListener(this);
+        cancelButton.addActionListener(this);
     }
 
     private void SetContentText(int id){
@@ -403,5 +384,68 @@ public class Window extends JFrame{
     public void disabledButtons(int buttonID) {
         itemButtons[buttonID].setEnabled(false);
         SetOrderItemText(buttonID, "_______________");
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        itemButtons = new JButton[25];
+        itemButtons[0] = itemButton;
+        itemButtons[1] = itemButton1;
+        itemButtons[2] = itemButton2;
+        itemButtons[3] = itemButton3;
+        itemButtons[4] = itemButton4;
+        itemButtons[5] = itemButton5;
+        itemButtons[6] = itemButton6;
+        itemButtons[7] = itemButton7;
+        itemButtons[8] = itemButton8;
+        itemButtons[9] = itemButton9;
+        itemButtons[10] = itemButton10;
+        itemButtons[11] = itemButton11;
+        itemButtons[12] = itemButton12;
+        itemButtons[13] = itemButton13;
+        itemButtons[14] = itemButton14;
+        itemButtons[15] = itemButton15;
+        itemButtons[16] = itemButton16;
+        itemButtons[17] = itemButton17;
+        itemButtons[18] = itemButton18;
+        itemButtons[19] = itemButton19;
+        itemButtons[20] = itemButton20;
+        itemButtons[21] = itemButton21;
+        itemButtons[22] = itemButton22;
+        itemButtons[23] = itemButton23;
+        itemButtons[24] = itemButton24;
+        if(actionEvent.getSource() == informationButton){
+            SetInformationPanel("information about order panel");
+        }
+        if(actionEvent.getSource() == informationButton2){
+            SetInformationPanel("information about packing panel");
+        }
+        if(actionEvent.getSource() == ophalenButton){
+            FinishOrder();
+        }
+        if(actionEvent.getSource() == cancelButton){
+            UpdateOrders();
+        }
+
+        for (int i = 0; i < 25; i++) {
+            if(actionEvent.getSource() == itemButtons[i]){
+                order.AddItem(itemButtons[i].getText(), "id", i);
+            }
+        }
+    }
+
+    @Override
+    public void popupMenuWillBecomeVisible(PopupMenuEvent popupMenuEvent) {
+
+    }
+
+    @Override
+    public void popupMenuWillBecomeInvisible(PopupMenuEvent popupMenuEvent) {
+
+    }
+
+    @Override
+    public void popupMenuCanceled(PopupMenuEvent popupMenuEvent) {
+
     }
 }
