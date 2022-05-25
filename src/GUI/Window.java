@@ -109,7 +109,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         grid.setLayout(new GridLayout());
         grid.add(currentGrid);
         // calling set functions for the four panels
-        SetInformationPanel("Test build");
+        SetInformationPanel("Select an order under \"Bestelling\"\nthis will automatically start that order");
         SetOrderPanel();
         SetPackingPanel();
 
@@ -281,7 +281,6 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
     // get the selected order for processing
     public Order GetSelectedOrder(){
-        System.out.println(comboBox1.getSelectedItem().getClass());
         if (comboBox1.getSelectedItem().equals("OrderID")){
             return null;
         }

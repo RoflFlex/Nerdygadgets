@@ -51,5 +51,11 @@ public class OrderManager {
 
     private void GetPath(){
         //algorithm = new TwoOpt();
+        // ones you have the path display this on the window with a set function;
+        DoPath(/* give the path */);
+    }
+
+    private void DoPath(/* request the path */){
+
     }
 }
