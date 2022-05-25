@@ -1,3 +1,5 @@
+package Database;
+
 import GUI.Window;
 
 import java.sql.*;
@@ -11,7 +13,7 @@ public class Database {
     private static String DB_PASSWORD = "" ;
     private static Connection connection ;
 
-    static ArrayList<ArrayList<String>> executeQuery(String query) throws SQLException{
+    public static ArrayList<ArrayList<String>> executeQuery(String query) throws SQLException{
         ArrayList<ArrayList<String>> result = new ArrayList<>();
         openConnection();
         Statement statement = connection.createStatement();
@@ -30,7 +32,7 @@ public class Database {
         return result;
     }
 
-    static int executeUpdate(String query) throws SQLException{
+    public static int executeUpdate(String query) throws SQLException{
         openConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         closeConnection();

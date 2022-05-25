@@ -1,4 +1,7 @@
+import Database.Database;
 import GUI.Window;
+import Klasses.OrderManager;
+import Panels.ItemRack;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -8,10 +11,10 @@ public class Main {
         // Call all starting scripts here
         Window window = new Window("HMI-applicatie");
         for (int i = 0; i < 25; i++) {
-            window.disabledButtons(i);
+//            window.disabledButtons(i);
         }
         Database.getOrders(window);
-        new ItemRack(window);
+//        new ItemRack(window);
 
         // timer for checking the database
         Timer myTimer = new Timer ();
