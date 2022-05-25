@@ -10,6 +10,21 @@ public class Main {
     public static void main(String[] args){
         // Call all starting scripts here
         Window window = new Window("HMI-applicatie");
+
+        window.NewOrder(1);
+        window.AddOrder("20", "who cares", 20);
+        window.AddOrder("13", "do you?", 13);
+        window.AddOrder("17", "I don't", 17);
+        window.FinishOrder();
+        window.NewOrder(2);
+        window.AddOrder("20", "who cares", 20);
+        window.AddOrder("13", "do you?", 13);
+        window.AddOrder("17", "I don't", 17);
+        window.AddOrder("20", "who cares", 20);
+        window.AddOrder("13", "do you?", 13);
+        window.AddOrder("17", "I don't", 17);
+        window.FinishOrder();
+
         for (int i = 0; i < 25; i++) {
 //            window.disabledButtons(i);
         }
@@ -28,6 +43,6 @@ public class Main {
 
         myTimer.scheduleAtFixedRate(myTask , 0l, 10000);
 
-        new OrderManager(window);
+        new OrderManager(window, null); // change this NULL to an instantiated of the class Robot
     }
 }
