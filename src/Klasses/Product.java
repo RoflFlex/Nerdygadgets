@@ -2,7 +2,7 @@ package Klasses;
 
 public class Product {
     private String name;
-    private int itemRackID;
+    private int productId;
 
     public String getName() {
         return name;
@@ -12,12 +12,12 @@ public class Product {
         this.name = name;
     }
 
-    public int getItemRackID() {
-        return itemRackID;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setItemRackID(int itemRackID) {
-        this.itemRackID = itemRackID;
+    public void setProductId(int itemRackID) {
+        this.productId = itemRackID;
     }
 
     public Product(){
@@ -28,6 +28,6 @@ public class Product {
     }
     public Product(String name, int itemRackID){
         this.name = name;
-        this.itemRackID = itemRackID;
+        this.productId = itemRackID;
     }
 }

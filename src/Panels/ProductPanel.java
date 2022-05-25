@@ -12,6 +12,14 @@ public class ProductPanel extends JPanel {
     private boolean isChosen = false;
     private boolean willBePacked = false;
 
+    public boolean isChosen() {
+        return isChosen;
+    }
+
+    public boolean isWillBePacked() {
+        return willBePacked;
+    }
+
     public ProductPanel(Product product){
         setPreferredSize(new Dimension(width,height));
         setBackground(Color.white);
@@ -50,7 +58,7 @@ public class ProductPanel extends JPanel {
         }else{
             drawStringMiddleOfPanel(product.getName(),g);
         }
-        System.out.println(product.getName());
+//        System.out.println(product.getName());
 
 
     }
@@ -84,9 +92,7 @@ public class ProductPanel extends JPanel {
         if(isChosen){
             isChosen =false;
         }else {
-            if (!willBePacked) {
-                getGraphics().setColor(Color.blue);
-                getGraphics().drawRect(0, 0, width - 1, height - 1);
+            if (!willBePacked && !product.getName().equals("-----")) {
                 isChosen = true;
             }
         }
@@ -97,8 +103,6 @@ public class ProductPanel extends JPanel {
             willBePacked = false;
         }else {
             if (!isChosen) {
-                getGraphics().setColor(Color.green);
-                getGraphics().drawRect(0, 0, width - 1, height - 1);
                 willBePacked = true;
             }
         }

@@ -301,9 +301,9 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     }
 
     // set color of button by index
-    public void SetColor(int index, Color color){
-        itemButtons[index].setForeground(color);
-    }
+//    public void SetColor(int index, Color color){
+//        itemButtons[index].setForeground(color);
+//    }
 
     // three functions to make new orders, use for database connection
     public void NewOrder(int id){
@@ -551,7 +551,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         for (int i = 0; i < 25; i ++){
             if(mouseEvent.getSource() == currentGrid.getProductPanels()[i]){
                 currentGrid.getProductPanels()[i].setChosen();
-                System.out.println("Clicked" + i);
+//                System.out.println("Clicked" + i);
                 currentGrid.getProductPanels()[i].repaint();
             }
         }
