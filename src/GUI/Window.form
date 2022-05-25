@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="window" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1018" height="727"/>
+      <xy x="20" y="20" width="1018" height="827"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -149,9 +149,9 @@
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="1" use-parent-layout="false">
-                <minimum-size width="400" height="400"/>
+                <minimum-size width="405" height="405"/>
                 <preferred-size width="400" height="400"/>
-                <maximum-size width="402" height="402"/>
+                <maximum-size width="415" height="415"/>
               </grid>
             </constraints>
             <properties/>

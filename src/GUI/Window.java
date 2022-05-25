@@ -2,6 +2,7 @@ package GUI;
 
 import Algoritmes.TSP.*;
 import Panels.ItemRack;
+import Panels.ProductPanel;
 import Robots.Robot;
 import com.fazecast.jSerialComm.SerialPort;
 
@@ -44,7 +45,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     private JButton cancelButton;
 
     private JPanel grid;
-    private JPanel currentGrid;
+    private ItemRack currentGrid;
 //    private JButton itemButton;
 //    private JButton itemButton1;
 //    private JButton itemButton2;
@@ -106,6 +107,10 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
 //        currentGrid = new ItemRack();
         currentGrid = new ItemRack();
+        ProductPanel[] productPanel = currentGrid.getProductPanels();
+        for(int i = 0 ; i < 25; i++ ){
+            productPanel[i].addMouseListener(this);
+        }
         grid.setLayout(new GridLayout());
         grid.add(currentGrid);
         // calling set functions for the four panels
@@ -543,7 +548,14 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-
+        for (int i = 0; i < 25; i ++){
+            if(mouseEvent.getSource() == currentGrid.getProductPanels()[i]){
+                currentGrid.getProductPanels()[i].setChosen();
+                System.out.println("Clicked" + i);
+                currentGrid.getProductPanels()[i].repaint();
+            }
+        }
+//        currentGrid.repaint();
     }
 
     @Override

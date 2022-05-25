@@ -11,13 +11,13 @@ public class ItemRack extends JPanel {
     private final int quantity = 25;
     private ProductPanel[] productPanels = new ProductPanel[quantity];
     private int quantityFilled = 0;
-    private int width = 400, height = 400;
+    private int width = 410, height = 410;
 
 
     public ItemRack(){
 
         setPreferredSize(new Dimension(width,height));
-        setLayout(new GridLayout(5,5));
+        setLayout(new GridLayout(5,5,2,2));
         setBackground(Color.WHITE);
 
         ArrayList<ArrayList<String>> itemRack = new ArrayList<>();
@@ -36,11 +36,12 @@ public class ItemRack extends JPanel {
             productPanels[Integer.parseInt(strings.get(0))].repaint();
         }
 
-        productPanels[1] = new ProductPanel(new Product("USB", 1));
+//        productPanels[1] = new ProductPanel(new Product("USB", 1));
 
         for (int i = 0; i < quantity; i++){
             productPanels[i].repaint();
         }
+
 
         setVisible(true);
     }
@@ -61,6 +62,11 @@ public class ItemRack extends JPanel {
             productPanels[i].repaint();
         }
     }
+
+    public ProductPanel[] getProductPanels() {
+        return productPanels;
+    }
+
     //    public ItemRack(Window window){
 //     //   Database.Database waardes ophalen
 //        // Kleuren

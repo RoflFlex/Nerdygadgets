@@ -30,9 +30,21 @@ public class ProductPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+
         super.paintComponent(g);
+        g.clearRect(0,0,width,height);
+        if(isChosen){
+            g.setColor(Color.blue);
+            g.drawRect(0, 0, width - 1, height - 1);
+
+        }else if(willBePacked){
+            g.setColor(Color.green);
+            g.drawRect(0, 0, width - 1, height - 1);
+        }else{
+            g.setColor(Color.black);
+            g.drawRect(0,0,width-1,height-1);
+        }
         g.setColor(Color.black);
-        g.drawRect(0,0,width-1,height-1);
         if(product.getName().length() > 10){
             drawStringMiddleOfPanel(product.getName().substring(0,10)+"...",g);
         }else{
@@ -69,19 +81,26 @@ public class ProductPanel extends JPanel {
 //        currentMessage = message2;  // alternate message
     }
     public void setChosen(){
-        if(!willBePacked){
-            getGraphics().setColor(Color.blue);
-            getGraphics().drawRect(0,0,width-1,height-1);
-            isChosen = true;
+        if(isChosen){
+            isChosen =false;
+        }else {
+            if (!willBePacked) {
+                getGraphics().setColor(Color.blue);
+                getGraphics().drawRect(0, 0, width - 1, height - 1);
+                isChosen = true;
+            }
         }
-
     }
 
     public void setWilLBePacked(){
-        if(!isChosen){
-            getGraphics().setColor(Color.green);
-            getGraphics().drawRect(0,0,width-1,height-1);
-            willBePacked = true;
+        if(willBePacked){
+            willBePacked = false;
+        }else {
+            if (!isChosen) {
+                getGraphics().setColor(Color.green);
+                getGraphics().drawRect(0, 0, width - 1, height - 1);
+                willBePacked = true;
+            }
         }
     }
 }
