@@ -2,7 +2,7 @@ package GUI;
 
 import Algoritmes.TSP.*;
 import Panels.ItemRack;
-import Panels.ProductPanel;
+import Panels.SortingLinePanel;
 import Robots.Robot;
 import com.fazecast.jSerialComm.SerialPort;
 
@@ -72,7 +72,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 //    private JButton itemButton23;
 //    private JButton itemButton24;
 
-    private JButton[] itemButtons;
+//    private JButton[] itemButtons;
 
     private JComboBox comportOrder;
     private JComboBox tspAlgorithmComboBox;
@@ -82,10 +82,11 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     private JButton informationButton2;
 
     private JPanel waitingLine;
-    private JButton itemButton25;
-    private JButton itemButton26;
-    private JButton itemButton29;
-    private JButton itemButton28;
+    private SortingLinePanel sortingLinePanel;
+//    private JButton itemButton25;
+//    private JButton itemButton26;
+//    private JButton itemButton29;
+//    private JButton itemButton28;
 
     private JButton boxButton;
     private JButton boxButton1;
@@ -105,12 +106,13 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         setTitle(title);
         setSize(1500, 844);
 
+        sortingLinePanel = new SortingLinePanel();
+        waitingLine.setLayout(new GridLayout());
+
+        waitingLine.add(sortingLinePanel);
+
 //        currentGrid = new ItemRack();
         currentGrid = new ItemRack();
-        ProductPanel[] productPanel = currentGrid.getProductPanels();
-        for(int i = 0 ; i < 25; i++ ){
-            productPanel[i].addMouseListener(this);
-        }
         grid.setLayout(new GridLayout());
         grid.add(currentGrid);
         // calling set functions for the four panels
@@ -342,14 +344,14 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     }
 
     // set button text based on the number you give it
-    public void setOrderItemText(int number, String text){
-        itemButtons[number].setText(text);
-    }
+//    public void setOrderItemText(int number, String text){
+//        itemButtons[number].setText(text);
+//    }
 
     // get button text bases on the number you give it
-    public String getOrderItemText(int number){
-        return itemButtons[number].getText();
-    }
+//    public String getOrderItemText(int number){
+//        return itemButtons[number].getText();
+//    }
 
     // set progress bar percentage from 0-100
     public void setProgressBar(int percentage){
@@ -371,31 +373,31 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     }
 
     // call to add a packing item to the line
-    public void addPackingItem(String text){
-        if (!buttons[0]){
-            itemButton28.setEnabled(true);
-            itemButton28.setText(text);
-            buttons[0] = true;
-        }
-        else if (!buttons[1]){
-            itemButton29.setEnabled(true);
-            itemButton29.setText(text);
-            buttons[1] = true;
-        }
-        else if (!buttons[2]){
-            itemButton26.setEnabled(true);
-            itemButton26.setText(text);
-            buttons[2] = true;
-        }
-        else if (!buttons[3]){
-            itemButton25.setEnabled(true);
-            itemButton25.setText(text);
-            buttons[3] = true;
-        }
-        else{
-            System.out.println("Line is currently full");
-        }
-    }
+//    public void addPackingItem(String text){
+//        if (!buttons[0]){
+//            itemButton28.setEnabled(true);
+//            itemButton28.setText(text);
+//            buttons[0] = true;
+//        }
+//        else if (!buttons[1]){
+//            itemButton29.setEnabled(true);
+//            itemButton29.setText(text);
+//            buttons[1] = true;
+//        }
+//        else if (!buttons[2]){
+//            itemButton26.setEnabled(true);
+//            itemButton26.setText(text);
+//            buttons[2] = true;
+//        }
+//        else if (!buttons[3]){
+//            itemButton25.setEnabled(true);
+//            itemButton25.setText(text);
+//            buttons[3] = true;
+//        }
+//        else{
+//            System.out.println("Line is currently full");
+//        }
+//    }
 
     // call ones an item get removed from the line (if it gets placed in a box)
 //    public void MovePackingItems(){
@@ -548,13 +550,14 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        for (int i = 0; i < 25; i ++){
-            if(mouseEvent.getSource() == currentGrid.getProductPanels()[i]){
-                currentGrid.getProductPanels()[i].setChosen();
-//                System.out.println("Clicked" + i);
-                currentGrid.getProductPanels()[i].repaint();
-            }
-        }
+//        for (int i = 0; i < 25; i ++){
+//            if(mouseEvent.getSource() == currentGrid.getProductPanels()[i]){
+//                currentGrid.getProductPanels()[i].setChosen();
+////                System.out.println("Clicked" + i);
+//                currentGrid.getProductPanels()[i].repaint();
+//            }
+//        }
+
 //        currentGrid.repaint();
     }
 

@@ -3,13 +3,26 @@ package Klasses;
 public class Product {
     private String name;
     private int productId;
+    private boolean willBePacked;
+
+    public boolean isWillBePacked() {
+        return willBePacked;
+    }
+
+    public void setWillBePacked(boolean willBePacked) {
+        this.willBePacked = willBePacked;
+    }
 
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        if(name == null){
+            this.name = "-----";
+        }else{
+            this.name = name;
+        }
     }
 
     public int getProductId() {
@@ -29,5 +42,11 @@ public class Product {
     public Product(String name, int itemRackID){
         this.name = name;
         this.productId = itemRackID;
+    }
+
+    public void setEmpty() {
+        setProductId(0);
+        name = "-----";
+        willBePacked = false;
     }
 }
