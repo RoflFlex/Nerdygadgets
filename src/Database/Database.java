@@ -67,7 +67,7 @@ public class Database {
         for (ArrayList<String> Order1: Order) {
             for (String OrderID:Order1) {
                 if (!(OrderID == null)) {
-                    window.NewOrder(Integer.parseInt(OrderID));
+                    window.newOrder(Integer.parseInt(OrderID));
                     ArrayList<ArrayList<String>> OrderLine = new ArrayList<>();
                     try {
                         OrderLine = Database.executeQuery("SELECT OrderID, StockItemID, Description FROM nerdygadgets.orderlines\n" +
@@ -77,8 +77,8 @@ public class Database {
                         e.printStackTrace();
                     }
                     for (ArrayList<String> OrderLine1: OrderLine) {
-                        window.AddOrder(OrderLine1.get(2), OrderLine1.get(1), 5);
-                        window.FinishOrder();
+                        window.addOrder(OrderLine1.get(2), OrderLine1.get(1), 5);
+                        window.finishOrder();
                     }
                 }
             }

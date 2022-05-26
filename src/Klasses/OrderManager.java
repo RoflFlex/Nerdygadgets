@@ -33,23 +33,23 @@ public class OrderManager {
 
         this.window = window;
         this.robot = robot;
-        CheckOrder();
+        checkOrder();
     }
 
-    private void SetOrder(Order order){
+    private void setOrder(Order order){
         this.order = order;
     }
 
-    private void CheckOrder(){
+    private void checkOrder(){
         Timer myTimer = new Timer ();
         TimerTask myTask = new TimerTask () {
             @Override
             public void run () {
-                Order order = window.GetSelectedOrder();
+                Order order = window.getSelectedOrder();
                 if (order != null){
                     myTimer.cancel();
-                    SetOrder(order);
-                    GetPath();
+                    setOrder(order);
+                    getPath();
                 }
             }
         };
@@ -58,15 +58,15 @@ public class OrderManager {
     }
 
     // get the path data and send it to the algorithm script
-    private void GetPath(){
+    private void getPath(){
         ArrayList<Point2D> cities = new ArrayList<Point2D>();
-        for (Object[] item : order.GetItems()){
+        for (Object[] item : order.getItems()){
             float x = ((int)item[3] % 5) + 1;
             float y = (float) Math.ceil((int)item[3] / 5) +  1;
             cities.add(new Point2D.Float(x, y));
         }
         TSPAlgorithm tspAlgorithm = null;
-        switch(window.GetAlgoritmOrder()){
+        switch(window.getAlgoritmOrder()){
             case"Nearest Insertion":
                 tspAlgorithm = new NearestInsertion(cities);
                 break;
@@ -95,7 +95,7 @@ public class OrderManager {
         //DoPath(tspAlgorithm.getPoints());
     }
 
-    private void DoPath(ArrayList<Point2D> points){
+    private void doPath(ArrayList<Point2D> points){
         String information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
         robot.sendInformation(information);
         Timer myTimer = new Timer ();
@@ -117,7 +117,7 @@ public class OrderManager {
 
                 if (index >= points.size()) {
                     myTimer.cancel();
-                    UpdateDatabase();
+                    updateDatabase();
                 }
             }
         };
@@ -125,7 +125,7 @@ public class OrderManager {
         myTimer.scheduleAtFixedRate(myTask , 0l, 1000);
     }
 
-    private void UpdateDatabase(){
+    private void updateDatabase(){
         // update de order in database to set it as completed
     }
 }

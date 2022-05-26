@@ -68,6 +68,9 @@ public class ItemRack extends JPanel {
     public void setPoints(ArrayList<Point2D> points){
         this.points = points;
         robotCoordinate = points.get(0);
+        for(int i = 0; i < points.size(); i ++){
+//            productPanels[(int)((points.get(i).getX()-1)*5 + points.get(i).getY()-1)].setWilLBePacked();
+        }
         nextPoint();
 //        routePanel.setPoints(points);
     }

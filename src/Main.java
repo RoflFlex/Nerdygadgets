@@ -1,7 +1,6 @@
 import Database.Database;
 import GUI.Window;
 import Klasses.OrderManager;
-import Panels.ItemRack;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,19 +10,19 @@ public class Main {
         // Call all starting scripts here
         Window window = new Window("HMI-applicatie");
 
-        window.NewOrder(1);
-        window.AddOrder("20", "who cares", 20);
-        window.AddOrder("13", "do you?", 13);
-        window.AddOrder("17", "I don't", 17);
-        window.FinishOrder();
-        window.NewOrder(2);
-        window.AddOrder("20", "who cares", 20);
-        window.AddOrder("13", "do you?", 13);
-        window.AddOrder("17", "I don't", 17);
-        window.AddOrder("20", "who cares", 20);
-        window.AddOrder("13", "do you?", 13);
-        window.AddOrder("17", "I don't", 17);
-        window.FinishOrder();
+        window.newOrder(1);
+        window.addOrder("20", "who cares", 20);
+        window.addOrder("13", "do you?", 13);
+        window.addOrder("17", "I don't", 17);
+        window.finishOrder();
+        window.newOrder(2);
+        window.addOrder("20", "who cares", 20);
+        window.addOrder("13", "do you?", 13);
+        window.addOrder("17", "I don't", 17);
+        window.addOrder("20", "who cares", 20);
+        window.addOrder("13", "do you?", 13);
+        window.addOrder("17", "I don't", 17);
+        window.finishOrder();
 
         for (int i = 0; i < 25; i++) {
 //            window.disabledButtons(i);

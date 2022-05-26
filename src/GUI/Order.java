@@ -11,7 +11,7 @@ public class Order {
         orderID = id;
     }
 
-    public void AddItem(String itemName, String itemID, int rackPlacement){
+    public void addItem(String itemName, String itemID, int rackPlacement){
         order.add(new Object[]{orderID, itemName, itemID, rackPlacement});
     }
 
@@ -19,7 +19,7 @@ public class Order {
         return orderID;
     }
 
-    public ArrayList<Object[]> GetItems(){
+    public ArrayList<Object[]> getItems(){
         return order;
     }
 }

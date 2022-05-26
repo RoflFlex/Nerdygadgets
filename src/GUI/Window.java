@@ -114,15 +114,15 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         grid.setLayout(new GridLayout());
         grid.add(currentGrid);
         // calling set functions for the four panels
-        SetInformationPanel("Select an order under \"Bestelling\"\nthis will automatically start that order");
-        SetOrderPanel();
-        SetPackingPanel();
+        setInformationPanel("Select an order under \"Bestelling\"\nthis will automatically start that order");
+        setOrderPanel();
+        setPackingPanel();
 
         // setting button behaviours
 //        SetOrderItemBehaviour();
 
         // setting dropdown behaviour
-        SetItemListeners();
+        setItemListeners();
 
 
         setComportOrder();
@@ -136,7 +136,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         setVisible(true);
         // setting some variables
         buttons = new boolean[]{false, false, false, false};
-        NewOrder(1);
+        newOrder(1);
 
     }
 
@@ -158,18 +158,18 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     }
 
     // setup for all that is inside the information panel
-    private void SetInformationPanel(String content){
+    private void setInformationPanel(String content){
         information.setText(content);
     }
 
     // setup for all that is inside the order panel
-    private void SetOrderPanel(){
+    private void setOrderPanel(){
         // setup for information button
         informationButton.addActionListener(this);
     }
 
     // setup for all that is inside the packing panel
-    private void SetPackingPanel(){
+    private void setPackingPanel(){
         // setup for information button
         informationButton2.addActionListener(this);
     }
@@ -212,7 +212,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 //        cancelButton.addActionListener(this);
 //    }
 
-    private void SetContentText(int id){
+    private void setContentText(int id){
         int index = 0;
         for(Order order : orders){
             int temp = order.getOrderID();
@@ -222,7 +222,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
             }
         }
         String temp = "<html>\n";
-        for(Object[] objects : orders.get(id).GetItems()){
+        for(Object[] objects : orders.get(id).getItems()){
             temp += "Name: " + objects[1] + " | Location: " + objects[3] + " <br/>\n";
         }
         temp += "</html>";
@@ -232,7 +232,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     }
 
     // setting up listeners for dropdown menus
-    private void SetItemListeners(){
+    private void setItemListeners(){
         tspAlgorithmComboBox.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
@@ -275,7 +275,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
                     //System.out.println(e.getItem());
                     try {
                         int id = Integer.parseInt(e.getItem().toString());
-                        SetContentText(id);
+                        setContentText(id);
                     } catch (NumberFormatException ex) {
                         System.out.println(e.getItem() + " does not contain an integer");
                     }
@@ -285,7 +285,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     }
 
     // get the selected order for processing
-    public Order GetSelectedOrder(){
+    public Order getSelectedOrder(){
         if (comboBox1.getSelectedItem().equals("OrderID")){
             return null;
         }
@@ -306,23 +306,23 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 //    }
 
     // three functions to make new orders, use for database connection
-    public void NewOrder(int id){
+    public void newOrder(int id){
         order = new Order(id);
     }
-    public void AddOrder(String itemName, String itemID, int rackPlacement){
+    public void addOrder(String itemName, String itemID, int rackPlacement){
         if (itemName.length() > 15) {
             itemName = itemName.substring(0, 15);
         }
-        order.AddItem(itemName, itemID, rackPlacement);
+        order.addItem(itemName, itemID, rackPlacement);
     }
-    public void FinishOrder(){
-        if (CheckOrders()){
+    public void finishOrder(){
+        if (checkOrders()){
             comboBox1.addItem(order.getOrderID());
             orders.add(order);
         }
         order = new Order(orders.size() + 1);
     }
-    private boolean CheckOrders(){
+    private boolean checkOrders(){
         int id = order.getOrderID();
         for (Order order : orders){
             if (order.getOrderID() == id)
@@ -332,7 +332,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     }
 
     // call ones the top order is finished
-    public void UpdateOrders(){
+    public void updateOrders(){
         if (orders.size() < 1){
             System.out.println("can't remove NULL item, add one first");
             return;
@@ -342,36 +342,36 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     }
 
     // set button text based on the number you give it
-    public void SetOrderItemText(int number, String text){
+    public void setOrderItemText(int number, String text){
         itemButtons[number].setText(text);
     }
 
     // get button text bases on the number you give it
-    public String GetOrderItemText(int number){
+    public String getOrderItemText(int number){
         return itemButtons[number].getText();
     }
 
     // set progress bar percentage from 0-100
-    public void SetProgressBar(int percentage){
+    public void setProgressBar(int percentage){
         progressBar1.setValue(percentage);
     }
 
     // get dropdown values
-    public String GetComportOrder(){
+    public String getComportOrder(){
         return comportOrder.getSelectedItem().toString();
     }
-    public String GetComportPacking(){
+    public String getComportPacking(){
         return comportPacking.getSelectedItem().toString();
     }
-    public String GetAlgoritmOrder(){
+    public String getAlgoritmOrder(){
         return tspAlgorithmComboBox.getSelectedItem().toString();
     }
-    public String GetAlgoritmPacking(){
+    public String getAlgoritmPacking(){
         return bppAlgorithmComboBox.getSelectedItem().toString();
     }
 
     // call to add a packing item to the line
-    public void AddPackingItem(String text){
+    public void addPackingItem(String text){
         if (!buttons[0]){
             itemButton28.setEnabled(true);
             itemButton28.setText(text);
@@ -455,16 +455,16 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 //        itemButtons[23] = itemButton23;
 //        itemButtons[24] = itemButton24;
         if(actionEvent.getSource() == informationButton){
-            SetInformationPanel("information about order panel");
+            setInformationPanel("information about order panel");
         }
         if(actionEvent.getSource() == informationButton2){
-            SetInformationPanel("information about packing panel");
+            setInformationPanel("information about packing panel");
         }
         if(actionEvent.getSource() == ophalenButton){
-            FinishOrder();
+            finishOrder();
         }
         if(actionEvent.getSource() == cancelButton){
-            UpdateOrders();
+            updateOrders();
         }
 
 //        for (int i = 0; i < 25; i++) {
