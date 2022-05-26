@@ -2,7 +2,7 @@ package Algoritmes;
 
 import java.util.ArrayList;
 
-public class bestFit {
+public class BestFit {
     static int bestFit(int weight[], int totalItems, int max)
     {
         int totalBins = 0;
