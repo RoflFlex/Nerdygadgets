@@ -3,8 +3,9 @@ package Database;
 import GUI.Window;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Calendar;
 
 
 public class Database {
@@ -12,6 +13,8 @@ public class Database {
     private static String DB_USERNAME = "root" ;
     private static String DB_PASSWORD = "" ;
     private static Connection connection ;
+
+    public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 
     public static ArrayList<ArrayList<String>> executeQuery(String query) throws SQLException{
         ArrayList<ArrayList<String>> result = new ArrayList<>();
@@ -83,6 +86,22 @@ public class Database {
                 }
             }
         }
+    }
+
+    public static void updateOrder(String orderID){
+        try {
+            Database.executeQuery("UPDATE nerdygadgets.orderlines\n" +
+                    "SET PickingCompletedWhen='" + now() + "'\n" +
+                    "WHERE OrderId='" + orderID + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String now() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        return sdf.format(cal.getTime());
     }
 }
 //C:\xampp\mysql\data\nerdygadgets

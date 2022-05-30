@@ -127,5 +127,6 @@ public class OrderManager {
 
     private void updateDatabase(){
         // update de order in database to set it as completed
+        //Database.updateOrder(order.getOrderID()); // careful with this statement
     }
 }
