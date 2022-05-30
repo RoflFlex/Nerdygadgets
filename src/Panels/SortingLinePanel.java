@@ -11,7 +11,7 @@ public class SortingLinePanel extends JPanel {
 
     public SortingLinePanel(){
         setPreferredSize(new Dimension(415, 90));
-        setLayout(new GridLayout(1,5,2,2));
+//        setLayout(new GridLayout(1,5,2,2));
         setLayout(new FlowLayout(FlowLayout.RIGHT));
         setBackground(Color.WHITE);
         setAlignmentX(getInsets().right);

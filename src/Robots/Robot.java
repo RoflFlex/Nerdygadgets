@@ -54,6 +54,7 @@ public class Robot {
         String textToReturn = "";
         if(dataBuffer.length() > amountCharacters){
             textToReturn = dataBuffer.substring(dataBuffer.length()-amountCharacters);
+            dataBuffer = "";
         }
         return textToReturn;
     }

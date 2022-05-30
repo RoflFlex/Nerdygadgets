@@ -3,6 +3,7 @@ package GUI;
 import Algoritmes.TSP.*;
 import Panels.ItemRack;
 import Panels.SortingLinePanel;
+import Panels.TurningPanel;
 import Robots.Robot;
 import com.fazecast.jSerialComm.SerialPort;
 
@@ -45,7 +46,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     private JButton cancelButton;
 
     private JPanel grid;
-    private ItemRack currentGrid;
+    public ItemRack currentGrid;
 //    private JButton itemButton;
 //    private JButton itemButton1;
 //    private JButton itemButton2;
@@ -82,19 +83,16 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     private JButton informationButton2;
 
     private JPanel waitingLine;
-    private SortingLinePanel sortingLinePanel;
+    public SortingLinePanel sortingLinePanel;
 //    private JButton itemButton25;
 //    private JButton itemButton26;
 //    private JButton itemButton29;
 //    private JButton itemButton28;
 
-    private JButton boxButton;
-    private JButton boxButton1;
-    private JButton boxButton2;
-    private JButton boxButton3;
-
     private JComboBox comportPacking;
     private JComboBox bppAlgorithmComboBox;
+    private JPanel turning;
+    private TurningPanel turningPanel;
 
     private boolean[] buttons;
     private Order order;
@@ -108,6 +106,10 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
         sortingLinePanel = new SortingLinePanel();
         waitingLine.setLayout(new GridLayout());
+
+        turningPanel = new TurningPanel();
+        turning.setLayout(new FlowLayout());
+        turning.add(turningPanel);
 
         waitingLine.add(sortingLinePanel);
 

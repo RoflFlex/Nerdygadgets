@@ -102,20 +102,26 @@ public class OrderManager {
         TimerTask myTask = new TimerTask () {
             @Override
             public void run () {
-                String information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
+                int x = (int)points.get(index).getX();
+                int y = (int)points.get(index).getY();
+                String information = x + "," + y;
                 System.out.println(information);
 
                 String response = robot.getText();
                 if (response.equalsIgnoreCase("TRUE")) {
+                    window.sortingLinePanel.addItem(window.currentGrid.getProduct((x-1)*5 + y));
+                    window.sortingLinePanel.remove(0);
                     index++;
                     information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
                     robot.sendInformation(information);
                     // send this ONE order to the window for the packing aplication
+
                 }
                 else if (response.equalsIgnoreCase(("FALSE")))
                     robot.sendInformation(information);
 
                 if (index >= points.size()) {
+                    window.sortingLinePanel.remove(0);
                     myTimer.cancel();
                     updateDatabase();
                 }

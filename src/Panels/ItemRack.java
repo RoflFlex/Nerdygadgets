@@ -30,28 +30,7 @@ public class ItemRack extends JPanel {
         setPreferredSize(new Dimension(width,height));
         setLayout(new GridLayout(5,5,2,2));
         setBackground(Color.WHITE);
-
-        ArrayList<ArrayList<String>> itemRack = new ArrayList<>();
-        try {
-            itemRack = Database.executeQuery("SELECT StellingID,StockItemName,StockItemID FROM nerdygadgets.stockitems\n" +
-                    "WHERE StellingID IS NOT NULL;");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < quantity; i++){
-//            productPanels[i] = new ProductPanel(new Product());
-//            add(productPanels[i]);
-            products[i] = new Product();
-        }
-//        add(routePanel, 1);
-        for (ArrayList<String> strings : itemRack) {
-            products[Integer.parseInt(strings.get(0))].setName(strings.get(1));
-            products[Integer.parseInt(strings.get(0))].setProductId(Integer.parseInt(strings.get(2)));
-//            productPanels[Integer.parseInt(strings.get(0))].getProduct().setName(strings.get(1));
-//            productPanels[Integer.parseInt(strings.get(0))].getProduct().setProductId(Integer.parseInt(strings.get(2)));
-            repaint();
-//            System.out.println(productPanels[Integer.parseInt(strings.get(0))].getProduct().getProductId());
-        }
+        update();
 //        ArrayList<Point2D> cities = new ArrayList<>();
 //        Random random = new Random();
 //        cities.add(new Point2D.Double(1.0,1.0));
@@ -79,6 +58,27 @@ public class ItemRack extends JPanel {
         }
         nextPoint();
 //        routePanel.setPoints(points);
+    }
+
+    public void update(){
+        ArrayList<ArrayList<String>> itemRack = new ArrayList<>();
+        try {
+            itemRack = Database.executeQuery("SELECT StellingID,StockItemName,StockItemID,TypicalWeightPerUnit FROM nerdygadgets.stockitems\n" +
+                    "WHERE StellingID IS NOT NULL;");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < quantity; i++){
+            products[i] = new Product();
+        }
+        for (ArrayList<String> strings : itemRack) {
+            products[Integer.parseInt(strings.get(0))].setName(strings.get(1));
+            products[Integer.parseInt(strings.get(0))].setProductId(Integer.parseInt(strings.get(2)));
+            products[Integer.parseInt(strings.get(0))].setWeight(Double.parseDouble(strings.get(3)));
+
+            repaint();
+
+        }
     }
 
     private void deletePoints(){

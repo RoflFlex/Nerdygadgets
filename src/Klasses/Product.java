@@ -4,6 +4,7 @@ public class Product {
     private String name;
     private int productId;
     private boolean willBePacked;
+    private double weight ;
 
     public boolean isWillBePacked() {
         return willBePacked;
@@ -39,9 +40,23 @@ public class Product {
     public Product(String name){
         this.name = name;
     }
-    public Product(String name, int itemRackID){
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public Product(String name, int itemRackID, double weight){
         this.name = name;
         this.productId = itemRackID;
+        this.weight = weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public Product(String name, int itemRackID){
+        this(name, itemRackID, 0);
     }
 
     public void setEmpty() {
