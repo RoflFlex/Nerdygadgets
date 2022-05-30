@@ -24,10 +24,10 @@ import java.util.ArrayList;
 
 public class Window extends JFrame implements ActionListener, PopupMenuListener, MouseListener {
     private JPanel window;
-    private TSPAlgorithm tspAlgorithm = new OwnChoice(null);
+    public TSPAlgorithm tspAlgorithm = new OwnChoice(null);
 
-    private Robot orderRobot;
-    private Robot packingRobot;
+    public Robot orderRobot = new Robot();
+    private Robot packingRobot = new Robot();
 
     // all elements from the information window
     private JPanel informationWindow;
@@ -511,7 +511,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         if(popupMenuEvent.getSource() == comportOrder ){
             int comport = comportOrder.getSelectedIndex();
             if(comportOrder.getSelectedIndex() != 0){
-                orderRobot = new Robot(comport-1);
+                orderRobot.setComport(comport-1);
                 if(orderRobot.getTextToPrint().equals("Succes")){
                     comportOrder.setEnabled(false);
                 }
@@ -521,7 +521,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         if(popupMenuEvent.getSource() == comportPacking){
             int comport = comportPacking.getSelectedIndex();
             if(comportOrder.getSelectedIndex() != 0){
-                packingRobot = new Robot(comport-1);
+                packingRobot.setComport(comport-1);
                 if(packingRobot.getTextToPrint().equals("Succes")){
                     comportPacking.setEnabled(false);
                 }

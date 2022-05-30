@@ -53,7 +53,7 @@ public class ItemRack extends JPanel {
         this.points = points;
         robotCoordinate = points.get(0);
         for(int i = 0; i < points.size(); i ++){
-            products[(int)((points.get(i).getX()-1)*5 + points.get(i).getY()-1)].setWillBePacked(true);
+            products[(int)((points.get(i).getY()-1)*5 + points.get(i).getX()-1)].setWillBePacked(true);
 //            productPanels[(int)((points.get(i).getX()-1)*5 + points.get(i).getY()-1)].setWilLBePacked();
         }
         nextPoint();
@@ -93,7 +93,11 @@ public class ItemRack extends JPanel {
         if(points != null ){
             robotIsMoving = true;
             lineId ++;
-            robotCoordinate = points.get(lineId - 1);
+            if(lineId == 1){
+                robotCoordinate = new Point2D.Double(1.0,1.0);
+            }else{
+                robotCoordinate = points.get(lineId - 1);
+            }
         }else if(points != null && points.size() < lineId){
             deletePoints();
         }
@@ -162,8 +166,8 @@ public class ItemRack extends JPanel {
             g.setColor(Color.RED);
             int startX = (int) (widthProduct/2+ (widthProduct+2)*(robotCoordinate.getX()-1));
             int startY = (int)(heightProduct/2+ (heightProduct+2)*(robotCoordinate.getY()-1)) + 2;
-            int endX = (int)(widthProduct/2+ (widthProduct+2)*(points.get(lineId).getX()-1));
-            int endY = (int)(widthProduct/2+ (heightProduct+2)*(points.get(lineId).getY()-1)) +2;
+            int endX = (int)(widthProduct/2+ (widthProduct+2)*(points.get(lineId-1).getX()-1));
+            int endY = (int)(widthProduct/2+ (heightProduct+2)*(points.get(lineId-1).getY()-1)) +2;
             g.drawLine(startX, startY, endX, endY);
         }
     }

@@ -13,26 +13,33 @@ public class Robot {
     private final String stopBits = "1";
     private final String parityBits = "NO_PARITY";
     private int serialPortInt;
-    private String dataBuffer;
+    private String dataBuffer="";
     private SerialPort serialPort;
     private OutputStream outputStream;
     private String textToPrint;
 
-    public Robot(int serialPort){
+    public Robot(){
+//        this.serialPort.setBaudRate(Integer.parseInt(baudRate));
+//        this.serialPort.setNumDataBits((Integer.parseInt(dataBits)));
+//        this.serialPort.setNumStopBits(Integer.parseInt(stopBits));
+//        this.serialPort.setParity(0);
+    }
+    public void setComport(int serialPortInt){
         try{
-            this.serialPortInt = serialPort;
+            this.serialPortInt = serialPortInt;
             SerialPort portLists[] = SerialPort.getCommPorts();
-            this.serialPort = portLists[serialPort];
+            this.serialPort = portLists[serialPortInt];
             //System.out.println(comboBoxComport.getSelectedIndex());
             this.serialPort.setBaudRate(Integer.parseInt(baudRate));
             this.serialPort.setNumDataBits((Integer.parseInt(dataBits)));
             this.serialPort.setNumStopBits(Integer.parseInt(stopBits));
             this.serialPort.setParity(0);
             this.serialPort.openPort();
+            Serial_EventBasedReading(serialPort);
 //            System.out.println(serialPort);
             textToPrint = "Succes";
         }catch (ArrayIndexOutOfBoundsException e){
-                textToPrint = "Canceled";
+            textToPrint = "Canceled";
         }
     }
 
@@ -60,7 +67,7 @@ public class Robot {
     }
 
     public String getText(){
-        return getText(10);
+        return getText(5);
     }
 
     public String getTextToPrint(){

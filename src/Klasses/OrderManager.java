@@ -22,7 +22,7 @@ public class OrderManager {
 
     private int index = 0;
 
-    public OrderManager(Window window, Robot robot){
+    public OrderManager(Window window){
         // start by getting the currently selected order, if it returns NULL wait a second before checking again.
         // then get the optimal path to get the items out of the rack.
 
@@ -32,7 +32,7 @@ public class OrderManager {
         // if it returns "FALSE" try the command again, if it continues to return "FALSE" show an error message.
 
         this.window = window;
-        this.robot = robot;
+        this.robot = this.window.orderRobot;
         checkOrder();
     }
 
@@ -49,7 +49,8 @@ public class OrderManager {
                 if (order != null){
                     myTimer.cancel();
                     setOrder(order);
-                    getPath();
+                    window.currentGrid.setPoints(getPath());
+                    doPath(getPath());
                 }
             }
         };
@@ -58,35 +59,37 @@ public class OrderManager {
     }
 
     // get the path data and send it to the algorithm script
-    private void getPath(){
+    private ArrayList<Point2D> getPath(){
         ArrayList<Point2D> cities = new ArrayList<Point2D>();
         for (Object[] item : order.getItems()){
             float x = ((int)item[3] % 5) + 1;
             float y = (float) Math.ceil((int)item[3] / 5) +  1;
             cities.add(new Point2D.Float(x, y));
         }
-        TSPAlgorithm tspAlgorithm = null;
-        switch(window.getAlgoritmOrder()){
-            case"Nearest Insertion":
-                tspAlgorithm = new NearestInsertion(cities);
-                break;
-            case"2-Opt":
-                tspAlgorithm = new TwoOpt(cities);
-                break;
-            case"Nearest Neighbour":
-                tspAlgorithm = new NearestNeighbour(cities);
-                break;
-            case"Nearest Insertion + 2-Opt":
-                tspAlgorithm = new OwnChoice(cities);
-                break;
-            default:
-                System.out.println("No algorithm selected");
-                return;
-        }
-
+        TSPAlgorithm tspAlgorithm = window.tspAlgorithm;
+//        switch(window.getAlgoritmOrder()){
+//            case"Nearest Insertion":
+//                tspAlgorithm = new NearestInsertion(cities);
+//                break;
+//            case"2-Opt":
+//                tspAlgorithm = new TwoOpt(cities);
+//                break;
+//            case"Nearest Neighbour":
+//                tspAlgorithm = new NearestNeighbour(cities);
+//                break;
+//            case"Nearest Insertion + 2-Opt":
+//                tspAlgorithm = new OwnChoice(cities);
+//                break;
+//            default:
+//                System.out.println("No algorithm selected");
+//                return;
+//        }
+        tspAlgorithm.setPoints(cities);
         for(Point2D point : tspAlgorithm.getPoints()){
             System.out.println("X = " + point.getX() + ", Y = " + point.getY());
         }
+
+        return tspAlgorithm.getPoints();
 
         // do a check if the order is posible with the current items in the rack
 
@@ -107,13 +110,16 @@ public class OrderManager {
                 String information = x + "," + y;
                 System.out.println(information);
 
-                String response = robot.getText();
+                String response = robot.getText(4);
+//                response = robot.getText().substring(response.length()-5);
+                System.out.println(response);
                 if (response.equalsIgnoreCase("TRUE")) {
                     window.sortingLinePanel.addItem(window.currentGrid.getProduct((x-1)*5 + y));
                     window.sortingLinePanel.remove(0);
                     index++;
                     information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
                     robot.sendInformation(information);
+                    window.currentGrid.nextPoint();
                     // send this ONE order to the window for the packing aplication
 
                 }

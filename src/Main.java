@@ -42,6 +42,6 @@ public class Main {
 
         myTimer.scheduleAtFixedRate(myTask , 0l, 10000);
 
-        new OrderManager(window, null); // change this NULL to an instantiated of the class Robot
+        new OrderManager(window); // change this NULL to an instantiated of the class Robot
     }
 }
