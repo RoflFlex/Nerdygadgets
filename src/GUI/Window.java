@@ -487,7 +487,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
             for(SerialPort port : portList){
                 comportOrder.addItem(port.getSystemPortName());
             }
-            if(packingRobot != null){
+            if(packingRobot.getSerialPort() != null){
                 comportOrder.remove(packingRobot.getSerialPortInt()+1);
             }
         }
@@ -500,7 +500,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
                 comportPacking.addItem(port.getSystemPortName());
             }
 
-            if(orderRobot != null){
+            if(orderRobot.getSerialPort() != null){
                 comportPacking.removeItemAt(orderRobot.getSerialPortInt()+1);
             }
         }

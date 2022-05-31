@@ -47,6 +47,10 @@ public class Robot {
         return serialPortInt;
     }
 
+    public SerialPort getSerialPort() {
+        return serialPort;
+    }
+
     public boolean sendInformation(String dataToSend){
         outputStream = serialPort.getOutputStream();
         try{
