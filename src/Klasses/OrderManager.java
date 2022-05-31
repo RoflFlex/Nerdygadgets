@@ -24,6 +24,16 @@ public class OrderManager {
 
     private int index = 0;
 
+    private boolean checkUp(){
+        // check if a comport is selected
+        String comport = window.getComportOrder();
+        if (comport.equalsIgnoreCase("COMPORT") || order == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     public OrderManager(Window window){
         // start by getting the currently selected order, if it returns NULL wait a second before checking again.
         // then get the optimal path to get the items out of the rack.
@@ -48,7 +58,7 @@ public class OrderManager {
             @Override
             public void run () {
                 Order order = window.getSelectedOrder();
-                if (order != null){
+                if (checkUp()){
                     myTimer.cancel();
                     setOrder(order);
                     window.currentGrid.setPoints(getPath());
