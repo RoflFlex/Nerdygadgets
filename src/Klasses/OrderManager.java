@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static Database.Database.updateOrder;
+
 public class OrderManager {
     ///<summary>
     /// this script will manage getting the order
@@ -94,8 +96,6 @@ public class OrderManager {
         // do a check if the order is posible with the current items in the rack
 
         // ones you have the path display this on the window with a set function;
-
-        //DoPath(tspAlgorithm.getPoints());
     }
 
     private void doPath(ArrayList<Point2D> points){
@@ -139,6 +139,6 @@ public class OrderManager {
 
     private void updateDatabase(){
         // update de order in database to set it as completed
-        //Database.updateOrder(order.getOrderID()); // careful with this statement
+        //updateOrder(Integer.toString(order.getOrderID())); // careful with this statement
     }
 }
