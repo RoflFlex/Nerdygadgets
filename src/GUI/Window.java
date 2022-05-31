@@ -107,9 +107,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         sortingLinePanel = new SortingLinePanel();
         waitingLine.setLayout(new GridLayout());
 
-        turningPanel = new TurningPanel();
-        turning.setLayout(new FlowLayout());
-        turning.add(turningPanel);
+        setTurningPanel();
 
         waitingLine.add(sortingLinePanel);
 
@@ -144,6 +142,16 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
     }
 
+    private void setTurningPanel(){
+        turningPanel = new TurningPanel();
+        turning.setLayout(new FlowLayout());
+        turning.add(turningPanel);
+        turning.addMouseListener(this);
+        turningPanel.addMouseListener(this);
+        for(int i = 0; i < turningPanel.getBoxPanels().length; i++ ){
+            turningPanel.getBoxPanels()[i].addMouseListener(this);
+        }
+    }
 
     private void setComportOrder(){
         comportOrder.addPopupMenuListener(this);
@@ -570,6 +578,11 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 //        }
 
 //        currentGrid.repaint();
+        for(int i = 0; i < turningPanel.getBoxPanels().length; i++){
+            if(mouseEvent.getSource() == turningPanel.getBoxPanels()[i]){
+                System.out.println(turningPanel.getBoxes().get(i));
+            }
+        }
     }
 
     @Override

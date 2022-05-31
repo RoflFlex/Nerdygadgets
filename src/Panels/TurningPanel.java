@@ -6,13 +6,17 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class TurningPanel extends JPanel {
+
+
     private final int quantity = 4;
     private BoxPanel[] boxes = new BoxPanel[quantity];
     private int width = 250, height = 250;
     private final int[] positions = {3,1,5,7};
+
+
     public TurningPanel(){
         setPreferredSize(new Dimension(width ,height));
-        setLayout(new GridLayout(3,3,8,8));
+        setLayout(new GridLayout(3,3,10,10));
         setVisible(true);
         for(int i = 0; i < quantity; i++){
             boxes[i] = new BoxPanel(new Box());
@@ -42,6 +46,10 @@ public class TurningPanel extends JPanel {
             }
 
         }
+    }
+
+    public BoxPanel[] getBoxPanels(){
+        return boxes;
     }
 
     public ArrayList<Box> getBoxes() {
