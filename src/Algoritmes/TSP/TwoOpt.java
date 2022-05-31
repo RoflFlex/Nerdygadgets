@@ -52,7 +52,27 @@ public class TwoOpt extends TSPAlgorithm{
 //        System.out.println("Total comparisons made: " + comparisons);
 //        System.out.println("Total improvements made: " + improve);
 //        System.out.println("Total iterations made: " + iterations);
-        setPoints(cities);
+        boolean startFounded = false;
+        int ind = 0;
+        ArrayList<Point2D> po = new ArrayList<>();
+        if(cities.get(0).getY() != 1.0 && cities.get(0).getX() != 1.0 ){
+            for(int i = 0 ; i < cities.size(); i ++ ){
+                if(cities.get(i).getY() == 1.0 && cities.get(i).getX() == 1.0 && !startFounded){
+                    startFounded = true;
+                    ind = i;
+                }
+                if(startFounded){
+                    po.add(cities.get(i));
+                }
+            }
+            for(int i = 0; i < ind; i++){
+                po.add(cities.get(i));
+            }
+            setPoints(po);
+        }else{
+            setPoints(cities);
+        }
+
     }
 
     private ArrayList<Point2D> swap(ArrayList<Point2D> cities, int i, int j) {
