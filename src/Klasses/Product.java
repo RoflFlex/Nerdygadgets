@@ -63,5 +63,6 @@ public class Product {
         setProductId(0);
         name = "-----";
         willBePacked = false;
+        productId = 0;
     }
 }
