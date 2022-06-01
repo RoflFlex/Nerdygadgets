@@ -149,6 +149,7 @@ public class OrderManager {
                 if (index >= points.size()) {
 //                    window.sortingLinePanel.remove(0);
                     myTimer.cancel();
+                    window.currentGrid.deletePoints();
                     updateDatabase();
                 }
             }

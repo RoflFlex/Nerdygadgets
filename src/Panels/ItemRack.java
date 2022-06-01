@@ -86,9 +86,10 @@ public class ItemRack extends JPanel {
         }
     }
 
-    private void deletePoints(){
+    public void deletePoints(){
         robotIsMoving = false;
-        this.points = null;
+        this.points = new ArrayList<>();
+        this.robotIs = new ArrayList<>();
         lineId = 0;
 //        last = false;
 //        routePanel.deletePoints();
