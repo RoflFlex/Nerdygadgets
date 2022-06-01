@@ -232,6 +232,16 @@ public class ItemRack extends JPanel {
 //            }
 //            g.drawLine(startX, startY, endX, endY);
         }
+        if(robotIs.size()>0){
+            g.setColor(Color.RED);
+            int yRobot = (int)((robotIs.get(robotIs.size()-1).getY()-1)*(heightProduct+2)+5);
+            int xRobot = (int)((robotIs.get(robotIs.size()-1).getX()-1)*(heightProduct+2)+3);
+            g.drawRect(xRobot,yRobot,widthProduct-6,heightProduct-6);
+
+        }else{
+            g.setColor(Color.RED);
+            g.drawRect(3,5,widthProduct-6,heightProduct-6);
+        }
     }
     private void drawStringMiddleOfPanel(String string, Graphics g,int x, int y) {
         String message2 = string;
