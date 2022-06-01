@@ -127,19 +127,21 @@ public class OrderManager {
                 int y = (int)points.get(index).getY();
                 String information = x + "," + y;
                 //robot.sendInformation(information);
-                String response = robot.getText(7);
+                String response = robot.getText(4);
                 response = response.trim();
 //                response = robot.getText().substring(response.length()-5);
                 System.out.println(response);
-                if (response.equalsIgnoreCase("true")) {
+                if (response.equalsIgnoreCase("ue")) {
                     index++;
-                    information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
-                    robot.sendInformation(information);
-                    System.out.println(information);
-                    window.currentGrid.nextPoint();
-                    System.out.println("tRUE GEKREGEN");
+                    if (index < points.size()){
+                        information = (int) points.get(index).getX() + "," + (int) points.get(index).getY();
+                        robot.sendInformation(information);
+                        System.out.println(information);
+                        window.currentGrid.nextPoint();
+                        System.out.println("tRUE GEKREGEN");
+                    }
                 }
-                else if (response.equalsIgnoreCase(("false"))) {
+                else if (response.equalsIgnoreCase(("se"))) {
                     robot.sendInformation(information);
                     System.out.println("false gekregen");
                 }
