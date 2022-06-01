@@ -12,10 +12,12 @@ public class OwnChoice extends TSPAlgorithm{
 
     @Override
     public void alternate() {
-        TwoOpt opt = new TwoOpt();
-        NearestInsertion insertion = new NearestInsertion(getPoints());
-        opt.setPoints(insertion.getPoints());
-        opt.alternate();
-        setPoints(opt.getPoints());
+        if(getPoints() != null) {
+            TwoOpt opt = new TwoOpt();
+            NearestInsertion insertion = new NearestInsertion(getPoints());
+            opt.setPoints(insertion.getPoints());
+            opt.alternate();
+            setPoints(opt.getPoints());
+        }
     }
 }

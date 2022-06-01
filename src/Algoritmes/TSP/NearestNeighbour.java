@@ -12,41 +12,44 @@ public class NearestNeighbour extends TSPAlgorithm {
 
     public NearestNeighbour(ArrayList<Point2D> points) {
         super(points);
+        alternate();
     }
 
     public void alternate() {
-        ArrayList<Point2D> cities = getPoints();
+        if(getPoints() != null) {
+            ArrayList<Point2D> cities = getPoints();
 
-        ArrayList<Point2D> result = new ArrayList<>(); //holds final result.
-        Point2D currentCity = cities.remove(0); //set current city to first array item.
-        Point2D closestCity = cities.get(0); //set closest city to new first array item.
-        Point2D possible; //for holding possible city.
-        double dist; //hold current node distance.
+            ArrayList<Point2D> result = new ArrayList<>(); //holds final result.
+            Point2D currentCity = cities.remove(0); //set current city to first array item.
+            Point2D closestCity = cities.get(0); //set closest city to new first array item.
+            Point2D possible; //for holding possible city.
+            double dist; //hold current node distance.
 
-        result.add(currentCity);
+            result.add(currentCity);
 
-        //outside loop to iterate through array
-        while (cities.size() > 0) {
+            //outside loop to iterate through array
+            while (cities.size() > 0) {
 
-            dist = Double.MAX_VALUE; //reset dist to max.
+                dist = Double.MAX_VALUE; //reset dist to max.
 
-            //inner loop checks distance between current city and possible.
-            for (int count = 0; count < cities.size(); count++) {
-                possible = cities.get(count);
-                if (currentCity.distance(possible) < dist) {
-                    dist = currentCity.distance(possible);
-                    closestCity = possible;
+                //inner loop checks distance between current city and possible.
+                for (int count = 0; count < cities.size(); count++) {
+                    possible = cities.get(count);
+                    if (currentCity.distance(possible) < dist) {
+                        dist = currentCity.distance(possible);
+                        closestCity = possible;
+                    }
                 }
-            }
             /*
             once inner loop finds closest node
             set current city to closest, remove closest from cities
             and add current city to result.
              */
-            currentCity = closestCity;
-            cities.remove(closestCity);
-            result.add(currentCity);
+                currentCity = closestCity;
+                cities.remove(closestCity);
+                result.add(currentCity);
+            }
+            setPoints(result);
         }
-        setPoints(result);
     }
 }
