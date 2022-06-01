@@ -12,7 +12,7 @@ import Klasses.Product;
 
 public class ItemRack extends JPanel {
     private final int quantity = 25;
-    private int lineId = 1;
+    private int lineId = 0;
     private Point2D robotCoordinate;
     private boolean robotIsMoving = false;
     private Product[] products = new Product[quantity];
@@ -53,6 +53,8 @@ public class ItemRack extends JPanel {
     public void setPoints(ArrayList<Point2D> points){
         this.points = points;
         robotCoordinate = points.get(0);
+        robotIs.add(points.get(0));
+        lineId = 0;
         for(int i = 1; i < points.size()-1; i ++){
             products[(int)((points.get(i).getY()-1)*5 + points.get(i).getX()-1)].setWillBePacked(true);
 //            productPanels[(int)((points.get(i).getX()-1)*5 + points.get(i).getY()-1)].setWilLBePacked();
@@ -87,9 +89,10 @@ public class ItemRack extends JPanel {
     private void deletePoints(){
         robotIsMoving = false;
         this.points = null;
-        lineId = 1;
+        lineId = 0;
 //        last = false;
 //        routePanel.deletePoints();
+        repaint();
     }
 
     public void nextPoint(){
@@ -105,14 +108,24 @@ public class ItemRack extends JPanel {
         }else
         if(points != null ){
 
-            robotIsMoving = true;
-
-            robotCoordinate = points.get(lineId);
-            robotIs.add(points.get(lineId));
-            if(lineId != 0 && lineId != points.size()){
+//            robotIsMoving = true;
+//
+//            robotCoordinate = points.get(lineId);
+//            robotIs.add(points.get(lineId));
+//            if(lineId != 0 && lineId != points.size()){
+//                int id = (int)(points.get(lineId).getX()-1 + (points.get(lineId).getY()-1)*5);
+////                products[id].setEmpty();
+//            }
+            if(lineId >= 1 && lineId < points.size()-1){
                 int id = (int)(points.get(lineId).getX()-1 + (points.get(lineId).getY()-1)*5);
+                System.out.println(id);
                 products[id].setEmpty();
+
+//                products[lineId]
+                robotCoordinate = points.get(lineId);
+                robotIs.add(points.get(lineId));
             }
+            robotIsMoving = true;
 
             lineId ++;
         }
@@ -198,17 +211,25 @@ public class ItemRack extends JPanel {
         }
         if(robotIsMoving){
             g.setColor(Color.RED);
-            int startX = (int) (widthProduct/2+ (widthProduct+2)*(robotCoordinate.getX()-1));
-            int startY = (int)(heightProduct/2+ (heightProduct+2)*(robotCoordinate.getY()-1)) + 2;
-            int endX, endY;
-            if(lineId >= points.size()){
-                endX = widthProduct/2;
-                endY = (widthProduct/2) +2;
-            }else {
-                endX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(lineId).getX() - 1));
-                endY = (int) (widthProduct / 2 + (heightProduct + 2) * (points.get(lineId).getY() - 1)) + 2;
+            for(int i = 1; i < robotIs.size();i++){
+                int startX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(i-1).getX() - 1));
+                int startY = (int) (heightProduct / 2 + (heightProduct + 2) * (points.get(i-1).getY() - 1)) + 2;
+                int endX, endY;
+                endX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(i).getX() - 1));
+                endY = (int) (widthProduct / 2 + (heightProduct + 2) * (points.get(i).getY() - 1)) + 2;
+                g.drawLine(startX, startY, endX, endY);
             }
-            g.drawLine(startX, startY, endX, endY);
+//            int startX = (int) (widthProduct/2+ (widthProduct+2)*(robotCoordinate.getX()-1));
+//            int startY = (int)(heightProduct/2+ (heightProduct+2)*(robotCoordinate.getY()-1)) + 2;
+//            int endX, endY;
+//            if(lineId >= points.size()){
+//                endX = widthProduct/2;
+//                endY = (widthProduct/2) +2;
+//            }else {
+//                endX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(lineId).getX() - 1));
+//                endY = (int) (widthProduct / 2 + (heightProduct + 2) * (points.get(lineId).getY() - 1)) + 2;
+//            }
+//            g.drawLine(startX, startY, endX, endY);
         }
     }
     private void drawStringMiddleOfPanel(String string, Graphics g,int x, int y) {
