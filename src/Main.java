@@ -11,22 +11,22 @@ public class Main {
         Window window = new Window("HMI-applicatie");
 
         window.newOrder(1);
-        window.addOrder("20", "who cares", 20);
-        window.addOrder("13", "do you?", 13);
-        window.addOrder("17", "I don't", 17);
+        window.addOrder("20", "20", 20);
+        window.addOrder("13", "13", 13);
+        window.addOrder("17", "17", 17);
         window.finishOrder();
         window.newOrder(2);
-        window.addOrder("20", "who cares", 20);
-        window.addOrder("13", "do you?", 13);
-        window.addOrder("17", "I don't", 17);
-        window.addOrder("20", "who cares", 20);
-        window.addOrder("13", "do you?", 13);
-        window.addOrder("17", "I don't", 17);
+        window.addOrder("23", "23", 23);
+        window.addOrder("2", "2", 2);
+        window.addOrder("8", "8", 8);
+        window.addOrder("3", "3", 3);
+        window.addOrder("18", "18", 18);
+        window.addOrder("24", "24", 24);
         window.finishOrder();
 
-        for (int i = 0; i < 25; i++) {
+//        for (int i = 0; i < 25; i++) {
 //            window.disabledButtons(i);
-        }
+//        }
         Database.getOrders(window);
 //        new ItemRack(window);
 

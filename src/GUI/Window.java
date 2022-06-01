@@ -1,6 +1,7 @@
 package GUI;
 
 import Algoritmes.TSP.*;
+import Klasses.Product;
 import Panels.ItemRack;
 import Panels.SortingLinePanel;
 import Panels.TurningPanel;
@@ -102,7 +103,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         // setting all necessary window information
         setContentPane(window);
         setTitle(title);
-        setSize(1500, 844);
+        setSize(1500, 950);
 
         sortingLinePanel = new SortingLinePanel();
         waitingLine.setLayout(new GridLayout());
@@ -236,6 +237,16 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         String temp = "<html>\n";
         for(Object[] objects : orders.get(id).getItems()){
             temp += "Name: " + objects[1] + " | Location: " + objects[3] + " <br/>\n";
+        }
+        temp += "</html>";
+        contentLabel.setText(temp);
+
+        System.out.println(temp);
+    }
+    private void setContentText(ArrayList<Product> products){
+        String temp = "<html>\n";
+        for(Product product : products){
+            temp += "Name: " + product.getName() + " | Weight: " + product.getWeight() + " <br/>\n";
         }
         temp += "</html>";
         contentLabel.setText(temp);
@@ -581,6 +592,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         for(int i = 0; i < turningPanel.getBoxPanels().length; i++){
             if(mouseEvent.getSource() == turningPanel.getBoxPanels()[i]){
                 System.out.println(turningPanel.getBoxes().get(i));
+                setContentText(turningPanel.getBoxes().get(i).getProducts());
             }
         }
     }
