@@ -7,7 +7,7 @@ public class TwoOpt extends TSPAlgorithm{
 
     public TwoOpt(ArrayList<Point2D> points) {
         super(points);
-        alternate();
+
     }
 
     public TwoOpt(){

@@ -8,7 +8,7 @@ public class NearestInsertion extends TSPAlgorithm{
 
     public NearestInsertion(ArrayList<Point2D> points) {
         super(points);
-        alternate();
+
     }
 
     public void alternate(){

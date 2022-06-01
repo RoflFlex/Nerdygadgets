@@ -9,16 +9,14 @@ public abstract class TSPAlgorithm {
 
     protected TSPAlgorithm(ArrayList<Point2D> points){
         this.points = points;
-        if(points != null){
-            alternate();
-        }
+
 
     }
 
 
     public ArrayList<Point2D> getPoints() {
         ArrayList<Point2D> result = new ArrayList<>();
-        if(points != null) {
+        if(getPoints() != null) {
             for (Point2D point : points) {
                 result.add(point);
             }
@@ -49,10 +47,7 @@ public abstract class TSPAlgorithm {
         }
         return result;
     }
-    public void addPoint(){
-        points.add(new Point2D.Double(1.0,1.0));
-        alternate();
-    }
+
 
     public abstract void alternate();
 

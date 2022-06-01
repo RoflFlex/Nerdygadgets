@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 public class OwnChoice extends TSPAlgorithm{
     public OwnChoice(ArrayList<Point2D> points) {
-        super(points);
-        alternate();
+            super(points);
     }
 
 

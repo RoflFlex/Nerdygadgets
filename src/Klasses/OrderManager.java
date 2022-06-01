@@ -80,31 +80,28 @@ public class OrderManager {
         }
         cities.add(0,new Point2D.Double(1.0,1.0));
         TSPAlgorithm tspAlgorithm = window.tspAlgorithm;
-        switch(window.getAlgoritmOrder()){
-            case"Nearest Insertion":
-                tspAlgorithm = new NearestInsertion(cities);
-                break;
-            case"2-Opt":
-                tspAlgorithm = new TwoOpt(cities);
-                break;
-            case"Nearest Neighbour":
-                tspAlgorithm = new NearestNeighbour(cities);
-                break;
-            case"Nearest Insertion + 2-Opt":
-                tspAlgorithm = new OwnChoice(cities);
-                break;
-            default:
-                System.out.println("No algorithm selected");
-                break;
-        }
+//        switch(window.getAlgoritmOrder()){
+//            case"Nearest Insertion":
+//                tspAlgorithm = new NearestInsertion(cities);
+//                break;
+//            case"2-Opt":
+//                tspAlgorithm = new TwoOpt(cities);
+//                break;
+//            case"Nearest Neighbour":
+//                tspAlgorithm = new NearestNeighbour(cities);
+//                break;
+//            case"Nearest Insertion + 2-Opt":
+//                tspAlgorithm = new OwnChoice(cities);
+//                break;
+//            default:
+//                System.out.println("No algorithm selected");
+//                return;
+//        }
         tspAlgorithm.setPoints(cities);
         for(Point2D point : tspAlgorithm.getPoints()){
             System.out.println("X = " + point.getX() + ", Y = " + point.getY());
         }
 
-        tspAlgorithm.setPoints(cities);
-        tspAlgorithm.alternate();
-        tspAlgorithm.addPoint();
         return tspAlgorithm.getPoints();
 
         // do a check if the order is posible with the current items in the rack
@@ -114,9 +111,8 @@ public class OrderManager {
 
     private void doPath(ArrayList<Point2D> points){
         String information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
-        window.currentGrid.setPoints(points);
-        index++;
         robot.sendInformation(information);
+        window.currentGrid.setPoints(points);
         Timer myTimer = new Timer ();
         TimerTask myTask = new TimerTask () {
             @Override
@@ -125,12 +121,11 @@ public class OrderManager {
                 int y = (int)points.get(index).getY();
                 String information = x + "," + y;
                 System.out.println(information);
-                //robot.sendInformation(information);
+                index++;
                 String response = robot.getText(4);
-                response = response.trim();
 //                response = robot.getText().substring(response.length()-5);
                 System.out.println(response);
-                if (response.equalsIgnoreCase("ue")) {
+                if (response.equalsIgnoreCase("TRUE")) {
                     information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
                     robot.sendInformation(information);
                     window.currentGrid.nextPoint();
@@ -138,8 +133,9 @@ public class OrderManager {
                     // send this ONE order to the window for the packing aplication
 
                 }
-                else if (response.equalsIgnoreCase(("se"))) robot.sendInformation(information);
-                //if (index == points.size() - 1) robot.sendInformation(information);
+                else if (response.equalsIgnoreCase(("FALSE")))
+                    robot.sendInformation(information);
+
                 if (index >= points.size()) {
 //                    window.sortingLinePanel.remove(0);
                     myTimer.cancel();

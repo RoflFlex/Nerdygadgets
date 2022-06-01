@@ -12,7 +12,7 @@ public class NearestNeighbour extends TSPAlgorithm {
 
     public NearestNeighbour(ArrayList<Point2D> points) {
         super(points);
-        alternate();
+
     }
 
     public void alternate() {

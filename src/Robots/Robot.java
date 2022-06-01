@@ -55,7 +55,6 @@ public class Robot {
         outputStream = serialPort.getOutputStream();
         try{
             outputStream.write(dataToSend.getBytes());
-            System.out.println("true");
             return true;
         }catch (IOException e){
             return false;

@@ -178,13 +178,13 @@ public class ItemRack extends JPanel {
             int startX = (int) (widthProduct / 2 + (widthProduct + 2) * (robotCoordinate.getX() - 1));
             int startY = (int) (heightProduct / 2 + (heightProduct + 2) * (robotCoordinate.getY() - 1)) + 2;
             int endX, endY;
-            //if (i == points.size()) {
+            if (i == points.size()) {
                 endX = widthProduct / 2;
                 endY = (widthProduct / 2) + 2;
-//            } else {
-//                endX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(lineId).getX() - 1));
-//                endY = (int) (widthProduct / 2 + (heightProduct + 2) * (points.get(lineId).getY() - 1)) + 2;
-//            }
+            } else {
+                endX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(lineId).getX() - 1));
+                endY = (int) (widthProduct / 2 + (heightProduct + 2) * (points.get(lineId).getY() - 1)) + 2;
+            }
             g.drawLine(startX, startY, endX, endY);
         }
         }
@@ -193,14 +193,14 @@ public class ItemRack extends JPanel {
             int startX = (int) (widthProduct/2+ (widthProduct+2)*(robotCoordinate.getX()-1));
             int startY = (int)(heightProduct/2+ (heightProduct+2)*(robotCoordinate.getY()-1)) + 2;
             int endX, endY;
-//            if(lineId >= points.size()){
-//                endX = widthProduct/2;
-//                endY = (widthProduct/2) +2;
-//            }else {
-//                endX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(lineId).getX() - 1));
-//                endY = (int) (widthProduct / 2 + (heightProduct + 2) * (points.get(lineId).getY() - 1)) + 2;
-//            }
-            //g.drawLine(startX, startY, endX, endY);
+            if(lineId >= points.size()){
+                endX = widthProduct/2;
+                endY = (widthProduct/2) +2;
+            }else {
+                endX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(lineId).getX() - 1));
+                endY = (int) (widthProduct / 2 + (heightProduct + 2) * (points.get(lineId).getY() - 1)) + 2;
+            }
+            g.drawLine(startX, startY, endX, endY);
         }
     }
     private void drawStringMiddleOfPanel(String string, Graphics g,int x, int y) {
