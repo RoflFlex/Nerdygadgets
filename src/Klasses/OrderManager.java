@@ -1,16 +1,17 @@
-package Klasses;
 
-import Algoritmes.TSP.*;
-import GUI.Order;
-import GUI.Window;
-import Robots.Robot;
+        package Klasses;
 
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+        import Algoritmes.TSP.*;
+        import GUI.Order;
+        import GUI.Window;
+        import Robots.Robot;
 
-import static Database.Database.updateOrder;
+        import java.awt.geom.Point2D;
+        import java.util.ArrayList;
+        import java.util.Timer;
+        import java.util.TimerTask;
+
+        import static Database.Database.updateOrder;
 
 public class OrderManager {
     ///<summary>
@@ -78,30 +79,33 @@ public class OrderManager {
             float y = (float) Math.ceil((int)item[3] / 5) +  1;
             cities.add(new Point2D.Float(x, y));
         }
-        cities.add(0,new Point2D.Double(1.0,1.0));
+        // Gaan wij tegen hem niks zeggen? Wat wil jij dan? Wat ben je toch weer goed bezig!
         TSPAlgorithm tspAlgorithm = window.tspAlgorithm;
-//        switch(window.getAlgoritmOrder()){
-//            case"Nearest Insertion":
-//                tspAlgorithm = new NearestInsertion(cities);
-//                break;
-//            case"2-Opt":
-//                tspAlgorithm = new TwoOpt(cities);
-//                break;
-//            case"Nearest Neighbour":
-//                tspAlgorithm = new NearestNeighbour(cities);
-//                break;
-//            case"Nearest Insertion + 2-Opt":
-//                tspAlgorithm = new OwnChoice(cities);
-//                break;
-//            default:
-//                System.out.println("No algorithm selected");
-//                return;
-//        }
+        switch(window.getAlgoritmOrder()){
+            case"Nearest Insertion":
+                tspAlgorithm = new NearestInsertion(cities);
+                break;
+            case"2-Opt":
+                tspAlgorithm = new TwoOpt(cities);
+                break;
+            case"Nearest Neighbour":
+                tspAlgorithm = new NearestNeighbour(cities);
+                break;
+            case"Nearest Insertion + 2-Opt":
+                tspAlgorithm = new OwnChoice(cities);
+                break;
+            default:
+                System.out.println("No algorithm selected");
+                break;
+        }
         tspAlgorithm.setPoints(cities);
         for(Point2D point : tspAlgorithm.getPoints()){
             System.out.println("X = " + point.getX() + ", Y = " + point.getY());
         }
-
+        cities.add(0,new Point2D.Double(1.0,1.0));
+        tspAlgorithm.setPoints(cities);
+        tspAlgorithm.alternate();
+        tspAlgorithm.addPoint();
         return tspAlgorithm.getPoints();
 
         // do a check if the order is posible with the current items in the rack
@@ -110,9 +114,11 @@ public class OrderManager {
     }
 
     private void doPath(ArrayList<Point2D> points){
+        index++;
         String information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
-        robot.sendInformation(information);
         window.currentGrid.setPoints(points);
+        robot.sendInformation(information);
+        System.out.println(information);
         Timer myTimer = new Timer ();
         TimerTask myTask = new TimerTask () {
             @Override
@@ -120,22 +126,24 @@ public class OrderManager {
                 int x = (int)points.get(index).getX();
                 int y = (int)points.get(index).getY();
                 String information = x + "," + y;
-                System.out.println(information);
-                index++;
-                String response = robot.getText(4);
+                //robot.sendInformation(information);
+                String response = robot.getText(7);
+                response = response.trim();
 //                response = robot.getText().substring(response.length()-5);
                 System.out.println(response);
-                if (response.equalsIgnoreCase("TRUE")) {
+                if (response.equalsIgnoreCase("true")) {
+                    index++;
                     information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
                     robot.sendInformation(information);
+                    System.out.println(information);
                     window.currentGrid.nextPoint();
-                    index++;
-                    // send this ONE order to the window for the packing aplication
-
+                    System.out.println("tRUE GEKREGEN");
                 }
-                else if (response.equalsIgnoreCase(("FALSE")))
+                else if (response.equalsIgnoreCase(("false"))) {
                     robot.sendInformation(information);
-
+                    System.out.println("false gekregen");
+                }
+                //if (index == points.size() - 1) robot.sendInformation(information);
                 if (index >= points.size()) {
 //                    window.sortingLinePanel.remove(0);
                     myTimer.cancel();
@@ -143,7 +151,6 @@ public class OrderManager {
                 }
             }
         };
-
         myTimer.scheduleAtFixedRate(myTask , 0l, 1000);
     }
 

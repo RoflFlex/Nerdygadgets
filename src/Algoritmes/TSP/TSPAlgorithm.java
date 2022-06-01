@@ -48,6 +48,9 @@ public abstract class TSPAlgorithm {
         return result;
     }
 
+    public void addPoint(){
+        points.add(new Point2D.Double(1.0,1.0));
+    }
 
     public abstract void alternate();
 
