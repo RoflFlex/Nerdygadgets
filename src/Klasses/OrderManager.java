@@ -57,7 +57,7 @@ public class OrderManager {
         TimerTask myTask = new TimerTask () {
             @Override
             public void run () {
-                Order order = window.getSelectedOrder();
+                order = window.getSelectedOrder();
                 if (checkUp()){
                     myTimer.cancel();
                     setOrder(order);
@@ -78,6 +78,7 @@ public class OrderManager {
             float y = (float) Math.ceil((int)item[3] / 5) +  1;
             cities.add(new Point2D.Float(x, y));
         }
+        cities.add(new Point2D.Double(1.0,1.0));
         TSPAlgorithm tspAlgorithm = window.tspAlgorithm;
 //        switch(window.getAlgoritmOrder()){
 //            case"Nearest Insertion":
@@ -111,6 +112,7 @@ public class OrderManager {
     private void doPath(ArrayList<Point2D> points){
         String information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
         robot.sendInformation(information);
+        window.currentGrid.setPoints(points);
         Timer myTimer = new Timer ();
         TimerTask myTask = new TimerTask () {
             @Override
@@ -119,17 +121,15 @@ public class OrderManager {
                 int y = (int)points.get(index).getY();
                 String information = x + "," + y;
                 System.out.println(information);
-
+                index++;
                 String response = robot.getText(4);
 //                response = robot.getText().substring(response.length()-5);
                 System.out.println(response);
                 if (response.equalsIgnoreCase("TRUE")) {
-                    window.sortingLinePanel.addItem(window.currentGrid.getProduct((x-1)*5 + y));
-                    window.sortingLinePanel.remove(0);
-                    index++;
                     information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
                     robot.sendInformation(information);
                     window.currentGrid.nextPoint();
+                    index++;
                     // send this ONE order to the window for the packing aplication
 
                 }
@@ -137,7 +137,7 @@ public class OrderManager {
                     robot.sendInformation(information);
 
                 if (index >= points.size()) {
-                    window.sortingLinePanel.remove(0);
+//                    window.sortingLinePanel.remove(0);
                     myTimer.cancel();
                     updateDatabase();
                 }

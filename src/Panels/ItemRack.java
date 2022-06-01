@@ -22,6 +22,7 @@ public class ItemRack extends JPanel {
     private final int widthProduct = 80;
     private final int heightProduct =80;
     private ArrayList<Point2D> points = new ArrayList<>();
+    private  boolean last = false;
 //    private RoutePanel routePanel = new RoutePanel();
 
 
@@ -83,22 +84,28 @@ public class ItemRack extends JPanel {
 
     private void deletePoints(){
         robotIsMoving = false;
-        setPoints(null);
+        this.points = null;
         lineId = 0;
+        last = false;
 //        routePanel.deletePoints();
     }
 
     public void nextPoint(){
 //        routePanel.nextPoint();
+        if(points != null && lineId == points.size()){
+            last = true;
+            lineId++;
+        }else
         if(points != null ){
             robotIsMoving = true;
-            lineId ++;
-            if(lineId == 1){
-                robotCoordinate = new Point2D.Double(1.0,1.0);
-            }else{
-                robotCoordinate = points.get(lineId - 1);
+            robotCoordinate = points.get(lineId);
+            if(lineId != 0){
+                int id = (int)(points.get(lineId).getX()-1 + (points.get(lineId).getY()-1)*5);
+                products[id] = new Product();
             }
-        }else if(points != null && points.size() < lineId){
+            lineId ++;
+        }
+        if(points != null && points.size() < lineId){
             deletePoints();
         }
         repaint();
@@ -168,6 +175,10 @@ public class ItemRack extends JPanel {
             int startY = (int)(heightProduct/2+ (heightProduct+2)*(robotCoordinate.getY()-1)) + 2;
             int endX = (int)(widthProduct/2+ (widthProduct+2)*(points.get(lineId-1).getX()-1));
             int endY = (int)(widthProduct/2+ (heightProduct+2)*(points.get(lineId-1).getY()-1)) +2;
+            if(last){
+                endX = widthProduct/2;
+                endY = (widthProduct/2) +2;
+            }
             g.drawLine(startX, startY, endX, endY);
         }
     }
