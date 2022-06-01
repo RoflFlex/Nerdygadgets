@@ -18,8 +18,10 @@ public abstract class TSPAlgorithm {
 
     public ArrayList<Point2D> getPoints() {
         ArrayList<Point2D> result = new ArrayList<>();
-        for (Point2D point: points ) {
-            result.add(point);
+        if(getPoints() != null) {
+            for (Point2D point : points) {
+                result.add(point);
+            }
         }
         return result;
     }
