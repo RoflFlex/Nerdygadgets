@@ -87,7 +87,7 @@ public class Robot {
 
             @Override
             public void serialEvent(SerialPortEvent serialPortEvent) {
-                System.out.println(serialPortEvent.getEventType());
+//                System.out.println(serialPortEvent.getEventType());
                 byte []newData = serialPortEvent.getReceivedData();
                 for (int i = 0; i < newData.length; i++){
                     dataBuffer += (char)newData[i];

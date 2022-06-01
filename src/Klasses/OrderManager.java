@@ -78,7 +78,7 @@ public class OrderManager {
             float y = (float) Math.ceil((int)item[3] / 5) +  1;
             cities.add(new Point2D.Float(x, y));
         }
-        cities.add(new Point2D.Double(1.0,1.0));
+        cities.add(0,new Point2D.Double(1.0,1.0));
         TSPAlgorithm tspAlgorithm = window.tspAlgorithm;
 //        switch(window.getAlgoritmOrder()){
 //            case"Nearest Insertion":
