@@ -16,7 +16,7 @@ public abstract class TSPAlgorithm {
 
     public ArrayList<Point2D> getPoints() {
         ArrayList<Point2D> result = new ArrayList<>();
-        if(getPoints() != null) {
+        if(points != null) {
             for (Point2D point : points) {
                 result.add(point);
             }
