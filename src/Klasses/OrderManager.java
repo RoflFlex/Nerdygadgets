@@ -142,9 +142,11 @@ public class OrderManager {
                     response = response.trim();
 //                response = robot.getText().substring(response.length()-5);
                     System.out.println(response);
-                    if (response.equalsIgnoreCase("ue")) {
+                    if (response.equalsIgnoreCase("ue") || response.equalsIgnoreCase("true")) {
                         SortingLinePanel panel = window.getSortingLinePanel();
-                        panel.addItem(products.get(index));
+                        try {
+                            panel.addItem(products.get(index));
+                        } catch (Exception E) {}
                         index++;
                         if (index < points.size()) {
                             information = (int) points.get(index).getX() + "," + (int) points.get(index).getY();
@@ -153,7 +155,7 @@ public class OrderManager {
                             window.currentGrid.nextPoint();
                             System.out.println("tRUE GEKREGEN");
                         }
-                    } else if (response.equalsIgnoreCase(("se"))) {
+                    } else if (response.equalsIgnoreCase("se") || response.equalsIgnoreCase("alse")) {
                         robot.sendInformation(information);
                         System.out.println("false gekregen");
                     }
