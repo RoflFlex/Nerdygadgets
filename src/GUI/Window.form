@@ -131,7 +131,6 @@
                 <item value="2-Opt"/>
                 <item value="Nearest Neighbour"/>
                 <item value="Nearest Insertion + 2-Opt"/>
-                <item value="do it yourself"/>
               </model>
             </properties>
           </component>
