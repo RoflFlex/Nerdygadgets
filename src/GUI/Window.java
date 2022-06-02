@@ -504,18 +504,26 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 //        itemButtons[24] = itemButton24;
         if(actionEvent.getSource() == informationButton){
             setInformationPanel("information about order panel\n\n" +
-                                        "First step is to select the correct USB connection using the COMPORT dropdown.\n" +
-                                        "Ones you have selected one you can pick an algorithm or leave it as is.\n" +
-                                        "Then you can select an order using the \"Bestelling\" dropdown,\n" +
-                                        "this wil start the order automatically.");
+                                        "First step is to select the correct USB connection using the COMPORT dropdown. " +
+                                        "Ones you have selected one you can pick an algorithm or leave it as is. " +
+                                        "Then you can select an order using the \"Bestelling\" dropdown, " +
+                                        "this wil start the order automatically.\n\n" +
+                                        "when an order is selected a few colors will be shown. " +
+                                        "the green line indicated where the robot is planning to go. " +
+                                        "the red line is where the robot currently is. " +
+                                        "green boxes are where to robot is planning to go to.");
         }
         if(actionEvent.getSource() == informationButton2){
             setInformationPanel("information about packing panel\n\n" +
-                                        "First step is to select the correct USB connection using the COMPORT dropdown.\n" +
-                                        "Ones you have selected one you can pick an algorithm or leave it as is.\n" +
-                                        "When you selected an order it will be shown in the order line and inside the boxes.\n" +
-                                        "To see what is in a box just press it and its content will be shown.\n" +
-                                        "This whole process is automatic and requires no further input.");
+                                        "First step is to select the correct USB connection using the COMPORT dropdown. " +
+                                        "Ones you have selected one you can pick an algorithm or leave it as is. " +
+                                        "When you selected an order it will be shown in the order line and inside the boxes. " +
+                                        "To see what is in a box just press it and its content will be shown. " +
+                                        "This whole process is automatic and requires no further input.\n\n" +
+                                        "when an order is selected a few colors will be shown. " +
+                                        "a green box shows an open box, this box is in front of the line and item can be places within. " +
+                                        "a red box shows a closed box, this box is full or nearing full, no more item will be places withing these. " +
+                                        "a red box should be removed from the machine for delivery. (ones the physical robot is build)");
         }
         if(actionEvent.getSource() == ophalenButton){
             finishOrder();
