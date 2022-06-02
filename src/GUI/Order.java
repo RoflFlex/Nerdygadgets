@@ -11,8 +11,8 @@ public class Order {
         orderID = id;
     }
 
-    public void addItem(String itemName, String itemID, int rackPlacement){
-        order.add(new Object[]{orderID, itemName, itemID, rackPlacement});
+    public void addItem(String itemName, String itemID, int rackPlacement, int weigth){
+        order.add(new Object[]{orderID, itemName, itemID, rackPlacement, weigth});
     }
 
     public int getOrderID(){

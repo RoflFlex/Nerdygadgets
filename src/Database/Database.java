@@ -80,7 +80,7 @@ public class Database {
                         e.printStackTrace();
                     }
                     for (ArrayList<String> OrderLine1: OrderLine) {
-                        window.addOrder(OrderLine1.get(2), OrderLine1.get(1), 5);
+                        window.addOrder(OrderLine1.get(2), OrderLine1.get(1), 5, 10); // do add rackplacement and weight to it
                         window.finishOrder();
                     }
                 }

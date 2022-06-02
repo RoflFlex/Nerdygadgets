@@ -4,6 +4,8 @@
         import Algoritmes.TSP.*;
         import GUI.Order;
         import GUI.Window;
+        import Panels.SortingLinePanel;
+        import Panels.TurningPanel;
         import Robots.Robot;
 
         import java.awt.geom.Point2D;
@@ -24,6 +26,7 @@ public class OrderManager {
     private Robot robot;
 
     private int index = 0;
+    private ArrayList<Product> products;
 
     private boolean checkUp(){
         // check if a comport is selected
@@ -47,6 +50,7 @@ public class OrderManager {
         this.window = window;
         this.robot = this.window.orderRobot;
         checkOrder();
+        updateOrderLine();
     }
 
     private void setOrder(Order order){
@@ -54,6 +58,7 @@ public class OrderManager {
     }
 
     private void checkOrder(){
+        window.setOrderIndex();
         Timer myTimer = new Timer ();
         TimerTask myTask = new TimerTask () {
             @Override
@@ -73,11 +78,16 @@ public class OrderManager {
 
     // get the path data and send it to the algorithm script
     private ArrayList<Point2D> getPath(){
-        ArrayList<Point2D> cities = new ArrayList<Point2D>();
+        products = new ArrayList<>();
+        ArrayList<Point2D> cities = new ArrayList<>();
         for (Object[] item : order.getItems()){
             float x = ((int)item[3] % 5) + 1;
             float y = (float) Math.ceil((int)item[3] / 5) +  1;
             cities.add(new Point2D.Float(x, y));
+
+            Product product = new Product((String)item[1], (int)item[3]);
+            product.setWeight((int)item[4]);
+            products.add(product);
         }
         // Gaan wij tegen hem niks zeggen? Wat wil jij dan? Wat ben je toch weer goed bezig!
         TSPAlgorithm tspAlgorithm = window.tspAlgorithm;
@@ -132,6 +142,8 @@ public class OrderManager {
 //                response = robot.getText().substring(response.length()-5);
                 System.out.println(response);
                 if (response.equalsIgnoreCase("ue")) {
+                    SortingLinePanel panel = window.getSortingLinePanel();
+                    panel.addItem(products.get(index));
                     index++;
                     if (index < points.size()){
                         information = (int) points.get(index).getX() + "," + (int) points.get(index).getY();
@@ -160,5 +172,27 @@ public class OrderManager {
     private void updateDatabase(){
         // update de order in database to set it as completed
         //updateOrder(Integer.toString(order.getOrderID())); // careful with this statement
+    }
+
+    private void updateOrderLine(){
+        Timer myTimer = new Timer ();
+        TimerTask myTask = new TimerTask () {
+            @Override
+            public void run () {
+                TurningPanel panel = window.getTurningPanel();
+                panel.turnTimes(1);
+
+                SortingLinePanel linePanel = window.getSortingLinePanel();
+                //linePanel.get
+                // get item that is in the front of the product line
+                // get the best placement based on the BPP-algorithm
+                // rotate the boxes until the best one is in front
+                // place the item in the box
+                // remove it from the front of the line
+                // repeat...
+            }
+        };
+
+        myTimer.scheduleAtFixedRate(myTask , 0l, 1000);
     }
 }

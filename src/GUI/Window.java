@@ -97,7 +97,9 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
     private boolean[] buttons;
     private Order order;
-    private ArrayList<Order> orders = new ArrayList<Order>();
+    private ArrayList<Order> orders = new ArrayList<>();
+
+    private int orderIndex;
 
     public Window(String title){
         // setting all necessary window information
@@ -234,22 +236,22 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
                 break;
             }
         }
-        String temp = "<html>\n";
+        StringBuilder temp = new StringBuilder("<html>\n");
         for(Object[] objects : orders.get(id).getItems()){
-            temp += "Name: " + objects[1] + " | Location: " + objects[3] + " <br/>\n";
+            temp.append("Name: ").append(objects[1]).append(" | Location: ").append(objects[3]).append(" | weight: ").append(objects[4]).append(" <br/>\n");
         }
-        temp += "</html>";
-        contentLabel.setText(temp);
+        temp.append("</html>");
+        contentLabel.setText(temp.toString());
 
         System.out.println(temp);
     }
-    private void setContentText(ArrayList<Product> products){
-        String temp = "<html>\n";
+    private void setContentText(ArrayList<Product> products, int boxId){
+        StringBuilder temp = new StringBuilder("<html>\nBox ID: " + boxId);
         for(Product product : products){
-            temp += "Name: " + product.getName() + " | Weight: " + product.getWeight() + " <br/>\n";
+            temp.append("Name: ").append(product.getName()).append(" | Weight: ").append(product.getWeight()).append(" <br/>\n");
         }
-        temp += "</html>";
-        contentLabel.setText(temp);
+        temp.append("</html>");
+        contentLabel.setText(String.valueOf(temp));
 
         System.out.println(temp);
     }
@@ -307,6 +309,18 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         });
     }
 
+    public void setOrderIndex() {
+        if (comboBox1.getSelectedItem().equals("OrderID")){
+            return;
+        }
+        orderIndex = comboBox1.getSelectedIndex() - 1;
+    }
+    public void updateOrder(){
+        comboBox1.removeItemAt(orderIndex + 1);
+        orders.remove(orderIndex);
+    }
+
+
     // get the selected order for processing
     public Order getSelectedOrder(){
         if (comboBox1.getSelectedItem().equals("OrderID")){
@@ -332,11 +346,11 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     public void newOrder(int id){
         order = new Order(id);
     }
-    public void addOrder(String itemName, String itemID, int rackPlacement){
+    public void addOrder(String itemName, String itemID, int rackPlacement, int weight){
         if (itemName.length() > 15) {
             itemName = itemName.substring(0, 15);
         }
-        order.addItem(itemName, itemID, rackPlacement);
+        order.addItem(itemName, itemID, rackPlacement, weight);
     }
     public void finishOrder(){
         if (checkOrders()){
@@ -391,6 +405,13 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     }
     public String getAlgoritmPacking(){
         return bppAlgorithmComboBox.getSelectedItem().toString();
+    }
+
+    public SortingLinePanel getSortingLinePanel(){
+        return sortingLinePanel;
+    }
+    public TurningPanel getTurningPanel(){
+        return turningPanel;
     }
 
     // call to add a packing item to the line
@@ -592,7 +613,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         for(int i = 0; i < turningPanel.getBoxPanels().length; i++){
             if(mouseEvent.getSource() == turningPanel.getBoxPanels()[i]){
                 System.out.println(turningPanel.getBoxes().get(i));
-                setContentText(turningPanel.getBoxes().get(i).getProducts());
+                setContentText(turningPanel.getBoxes().get(i).getProducts(), i);
             }
         }
     }
