@@ -45,6 +45,7 @@ public class FirstFit extends BPPAlgorithm {
                 FirstFit.bins.add(new ArrayList<>());
                 binCount++;
                 binRemCap[binCount-1] -= weight;
+                FirstFit.bins.get(binCount - 1).add(new Product((String)order.getItems().get(index)[1], 0, weight));
             }
             index++;
         }
