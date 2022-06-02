@@ -30,6 +30,8 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
     public Robot orderRobot = new Robot();
     private Robot packingRobot = new Robot();
 
+    private boolean stop = false;
+
     // all elements from the information window
     private JPanel informationWindow;
     private JTextPane information;
@@ -125,7 +127,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
         // setting button behaviours
 //        SetOrderItemBehaviour();
-
+        cancelButton.addActionListener(this);
         // setting dropdown behaviour
         setItemListeners();
 
@@ -517,7 +519,14 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
             finishOrder();
         }
         if(actionEvent.getSource() == cancelButton){
-            updateOrders();
+            //updateOrders();
+            if (cancelButton.getText().equalsIgnoreCase("cancel")) {
+                stop = true;
+                cancelButton.setText("Hervatten");
+            } else {
+                stop = false;
+                cancelButton.setText("Cancel");
+            }
         }
 
 //        for (int i = 0; i < 25; i++) {
@@ -525,6 +534,9 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 //                order.AddItem(itemButtons[i].getText(), "id", i);
 //            }
 //        }
+    }
+    public boolean getStop(){
+        return stop;
     }
 
     @Override

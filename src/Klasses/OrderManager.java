@@ -133,36 +133,37 @@ public class OrderManager {
         TimerTask myTask = new TimerTask () {
             @Override
             public void run () {
-                int x = (int)points.get(index).getX();
-                int y = (int)points.get(index).getY();
-                String information = x + "," + y;
-                //robot.sendInformation(information);
-                String response = robot.getText(4);
-                response = response.trim();
+                if (!(window.getStop())) {
+                    int x = (int) points.get(index).getX();
+                    int y = (int) points.get(index).getY();
+                    String information = x + "," + y;
+                    //robot.sendInformation(information);
+                    String response = robot.getText(4);
+                    response = response.trim();
 //                response = robot.getText().substring(response.length()-5);
-                System.out.println(response);
-                if (response.equalsIgnoreCase("ue")) {
-                    SortingLinePanel panel = window.getSortingLinePanel();
-                    panel.addItem(products.get(index));
-                    index++;
-                    if (index < points.size()){
-                        information = (int) points.get(index).getX() + "," + (int) points.get(index).getY();
+                    System.out.println(response);
+                    if (response.equalsIgnoreCase("ue")) {
+                        SortingLinePanel panel = window.getSortingLinePanel();
+                        panel.addItem(products.get(index));
+                        index++;
+                        if (index < points.size()) {
+                            information = (int) points.get(index).getX() + "," + (int) points.get(index).getY();
+                            robot.sendInformation(information);
+                            System.out.println(information);
+                            window.currentGrid.nextPoint();
+                            System.out.println("tRUE GEKREGEN");
+                        }
+                    } else if (response.equalsIgnoreCase(("se"))) {
                         robot.sendInformation(information);
-                        System.out.println(information);
-                        window.currentGrid.nextPoint();
-                        System.out.println("tRUE GEKREGEN");
+                        System.out.println("false gekregen");
                     }
-                }
-                else if (response.equalsIgnoreCase(("se"))) {
-                    robot.sendInformation(information);
-                    System.out.println("false gekregen");
-                }
-                //if (index == points.size() - 1) robot.sendInformation(information);
-                if (index >= points.size()) {
+                    //if (index == points.size() - 1) robot.sendInformation(information);
+                    if (index >= points.size()) {
 //                    window.sortingLinePanel.remove(0);
-                    myTimer.cancel();
-                    window.currentGrid.deletePoints();
-                    updateDatabase();
+                        myTimer.cancel();
+                        window.currentGrid.deletePoints();
+                        updateDatabase();
+                    }
                 }
             }
         };
