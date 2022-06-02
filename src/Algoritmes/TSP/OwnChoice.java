@@ -14,6 +14,7 @@ public class OwnChoice extends TSPAlgorithm{
         if(getPoints() != null) {
             TwoOpt opt = new TwoOpt();
             NearestInsertion insertion = new NearestInsertion(getPoints());
+            insertion.alternate();
             opt.setPoints(insertion.getPoints());
             opt.alternate();
             setPoints(opt.getPoints());
