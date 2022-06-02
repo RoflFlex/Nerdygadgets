@@ -1,17 +1,41 @@
 package Algoritmes;
 
+import Algoritmes.TSP.BPPAlgorithm;
+import GUI.Order;
+import Klasses.Product;
+
 import java.util.ArrayList;
 
-public class BestFit {
+public class BestFit extends BPPAlgorithm {
+    public static ArrayList<ArrayList<Product>> bins;
+    private static Order order;
+
+    @Override
+    public ArrayList<ArrayList<Product>> getBestPlacement(Order order){
+        BestFit.order = order;
+        bins = new ArrayList<>();
+        int[] weights = new int[order.getItems().size()];
+        int index = 0;
+        for (Object[] object : order.getItems()){
+            weights[index] = (int)object[4];
+            index++;
+        }
+        bestFit(weights, weights.length, 100);
+
+        return bins;
+    }
+
     static int bestFit(int weight[], int totalItems, int max)
     {
         int totalBins = 0;
 
         int []bins = new int[totalItems];
         ArrayList<String> items = new ArrayList<>();
+        BestFit.bins.add(new ArrayList<>());
 
         if (weight.length != 0) {
             totalBins += 1;
+            int index = 0;
             for (int item: weight) {
                 for (int bin = 0; bin < totalBins; bin++) {
                     if (item + bins[bin] <= max) {
@@ -20,13 +44,16 @@ public class BestFit {
                             items.add("");
                         }
                         items.set(bin, items.get(bin) + " " + item);
+                        BestFit.bins.get(totalBins - 1).add(new Product((String)order.getItems().get(index)[1], 0, item));
                         break;
                     } else {
                         if (bin == totalBins -1) {
+                            BestFit.bins.add(new ArrayList<>());
                             totalBins += 1;
                         }
                     }
                 }
+                index++;
             }
 
         }

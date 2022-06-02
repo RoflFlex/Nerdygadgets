@@ -1,5 +1,6 @@
 package GUI;
 
+import Algoritmes.BestFit;
 import Algoritmes.TSP.*;
 import Klasses.Product;
 import Panels.ItemRack;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 public class Window extends JFrame implements ActionListener, PopupMenuListener, MouseListener {
     private JPanel window;
     public TSPAlgorithm tspAlgorithm = new OwnChoice(null);
+    public BPPAlgorithm bppAlgorithm = new BestFit();
 
     public Robot orderRobot = new Robot();
     private Robot packingRobot = new Robot();
@@ -248,7 +250,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         System.out.println(temp);
     }
     private void setContentText(ArrayList<Product> products, int boxId){
-        StringBuilder temp = new StringBuilder("<html>\nBox ID: " + boxId);
+        StringBuilder temp = new StringBuilder("<html>\nBox ID: " + boxId + " <br/>\n");
         for(Product product : products){
             temp.append("Name: ").append(product.getName()).append(" | Weight: ").append(product.getWeight()).append(" <br/>\n");
         }

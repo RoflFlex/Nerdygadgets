@@ -131,6 +131,7 @@
                 <item value="2-Opt"/>
                 <item value="Nearest Neighbour"/>
                 <item value="Nearest Insertion + 2-Opt"/>
+                <item value="do it yourself"/>
               </model>
             </properties>
           </component>
@@ -173,8 +174,8 @@
             </constraints>
             <properties>
               <model>
-                <item value="Refined-Harmonic"/>
                 <item value="Best-Fit"/>
+                <item value="First-Fit"/>
                 <item value="do it yourself"/>
               </model>
             </properties>

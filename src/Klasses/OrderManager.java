@@ -1,9 +1,12 @@
 
         package Klasses;
 
+        import Algoritmes.BestFit;
+        import Algoritmes.FirstFit;
         import Algoritmes.TSP.*;
         import GUI.Order;
         import GUI.Window;
+        import Panels.BoxPanel;
         import Panels.SortingLinePanel;
         import Panels.TurningPanel;
         import Robots.Robot;
@@ -28,17 +31,17 @@ public class OrderManager {
     private int index = 0;
     private ArrayList<Product> products;
 
-    private boolean checkUp(){
+    private boolean checkUp() {
         // check if a comport is selected
         String comport = window.getComportOrder();
-        if (comport.equalsIgnoreCase("COMPORT") || order == null){
+        if (comport.equalsIgnoreCase("COMPORT") || order == null) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
-    public OrderManager(Window window){
+    public OrderManager(Window window) {
         // start by getting the currently selected order, if it returns NULL wait a second before checking again.
         // then get the optimal path to get the items out of the rack.
 
@@ -50,22 +53,22 @@ public class OrderManager {
         this.window = window;
         this.robot = this.window.orderRobot;
         checkOrder();
-        updateOrderLine();
     }
 
-    private void setOrder(Order order){
+    private void setOrder(Order order) {
         this.order = order;
     }
 
-    private void checkOrder(){
+    private void checkOrder() {
         window.setOrderIndex();
-        Timer myTimer = new Timer ();
-        TimerTask myTask = new TimerTask () {
+        Timer myTimer = new Timer();
+        TimerTask myTask = new TimerTask() {
             @Override
-            public void run () {
+            public void run() {
                 order = window.getSelectedOrder();
-                if (checkUp()){
+                if (order != null) {
                     myTimer.cancel();
+                    updateOrderLine();
                     setOrder(order);
                     window.currentGrid.setPoints(getPath());
                     doPath(getPath());
@@ -73,35 +76,35 @@ public class OrderManager {
             }
         };
 
-        myTimer.scheduleAtFixedRate(myTask , 0l, 1000);
+        myTimer.scheduleAtFixedRate(myTask, 0l, 1000);
     }
 
     // get the path data and send it to the algorithm script
-    private ArrayList<Point2D> getPath(){
+    private ArrayList<Point2D> getPath() {
         products = new ArrayList<>();
         ArrayList<Point2D> cities = new ArrayList<>();
-        for (Object[] item : order.getItems()){
-            float x = ((int)item[3] % 5) + 1;
-            float y = (float) Math.ceil((int)item[3] / 5) +  1;
+        for (Object[] item : order.getItems()) {
+            float x = ((int) item[3] % 5) + 1;
+            float y = (float) Math.ceil((int) item[3] / 5) + 1;
             cities.add(new Point2D.Float(x, y));
 
-            Product product = new Product((String)item[1], (int)item[3]);
-            product.setWeight((int)item[4]);
+            Product product = new Product((String) item[1], (int) item[3]);
+            product.setWeight((int) item[4]);
             products.add(product);
         }
         // Gaan wij tegen hem niks zeggen? Wat wil jij dan? Wat ben je toch weer goed bezig!
         TSPAlgorithm tspAlgorithm = window.tspAlgorithm;
-        switch(window.getAlgoritmOrder()){
-            case"Nearest Insertion":
+        switch (window.getAlgoritmOrder()) {
+            case "Nearest Insertion":
                 tspAlgorithm = new NearestInsertion(cities);
                 break;
-            case"2-Opt":
+            case "2-Opt":
                 tspAlgorithm = new TwoOpt(cities);
                 break;
-            case"Nearest Neighbour":
+            case "Nearest Neighbour":
                 tspAlgorithm = new NearestNeighbour(cities);
                 break;
-            case"Nearest Insertion + 2-Opt":
+            case "Nearest Insertion + 2-Opt":
                 tspAlgorithm = new OwnChoice(cities);
                 break;
             default:
@@ -109,10 +112,10 @@ public class OrderManager {
                 break;
         }
         tspAlgorithm.setPoints(cities);
-        for(Point2D point : tspAlgorithm.getPoints()){
+        for (Point2D point : tspAlgorithm.getPoints()) {
             System.out.println("X = " + point.getX() + ", Y = " + point.getY());
         }
-        cities.add(0,new Point2D.Double(1.0,1.0));
+        cities.add(0, new Point2D.Double(1.0, 1.0));
         tspAlgorithm.setPoints(cities);
         tspAlgorithm.alternate();
         tspAlgorithm.addPoint();
@@ -123,16 +126,16 @@ public class OrderManager {
         // ones you have the path display this on the window with a set function;
     }
 
-    private void doPath(ArrayList<Point2D> points){
+    private void doPath(ArrayList<Point2D> points) {
         index++;
-        String information = (int)points.get(index).getX() + "," + (int)points.get(index).getY();
+        String information = (int) points.get(index).getX() + "," + (int) points.get(index).getY();
         window.currentGrid.setPoints(points);
         robot.sendInformation(information);
         System.out.println(information);
-        Timer myTimer = new Timer ();
-        TimerTask myTask = new TimerTask () {
+        Timer myTimer = new Timer();
+        TimerTask myTask = new TimerTask() {
             @Override
-            public void run () {
+            public void run() {
                 if (!(window.getStop())) {
                     int x = (int) points.get(index).getX();
                     int y = (int) points.get(index).getY();
@@ -146,7 +149,8 @@ public class OrderManager {
                         SortingLinePanel panel = window.getSortingLinePanel();
                         try {
                             panel.addItem(products.get(index));
-                        } catch (Exception E) {}
+                        } catch (Exception E) {
+                        }
                         index++;
                         if (index < points.size()) {
                             information = (int) points.get(index).getX() + "," + (int) points.get(index).getY();
@@ -169,33 +173,41 @@ public class OrderManager {
                 }
             }
         };
-        myTimer.scheduleAtFixedRate(myTask , 0l, 1000);
+        myTimer.scheduleAtFixedRate(myTask, 0l, 1000);
     }
 
-    private void updateDatabase(){
+    private void updateDatabase() {
         // update de order in database to set it as completed
         //updateOrder(Integer.toString(order.getOrderID())); // careful with this statement
     }
 
-    private void updateOrderLine(){
-        Timer myTimer = new Timer ();
-        TimerTask myTask = new TimerTask () {
-            @Override
-            public void run () {
-                TurningPanel panel = window.getTurningPanel();
-                panel.turnTimes(1);
+    private void updateOrderLine() {
+        // get the best placement based on the BPP-algorithm
+        BPPAlgorithm algorithm = window.bppAlgorithm;
+        switch (window.getAlgoritmPacking()) {
+            case "Best-Fit" -> algorithm = new BestFit();
+            case "First-Fit" -> algorithm = new FirstFit();
+            default -> System.out.println("No algorithm selected");
+        }
+        ArrayList<ArrayList<Product>> products = algorithm.getBestPlacement(order);
 
-                SortingLinePanel linePanel = window.getSortingLinePanel();
-                //linePanel.get
-                // get item that is in the front of the product line
-                // get the best placement based on the BPP-algorithm
-                // rotate the boxes until the best one is in front
-                // place the item in the box
-                // remove it from the front of the line
-                // repeat...
+        TurningPanel panel = window.getTurningPanel();
+        BoxPanel[] boxpanels = panel.getBoxPanels();
+        int index = 0;
+        for (BoxPanel box : boxpanels) {
+            if (index >= products.size())
+                break;
+            Box bin = box.getBox();
+            for (Product item : products.get(index)) {
+                bin.addProduct(item);
             }
-        };
+            index++;
+        }
 
-        myTimer.scheduleAtFixedRate(myTask , 0l, 1000);
+
+        //Product product = linePanel.getFirst();
+        //System.out.println();
+
+
     }
 }

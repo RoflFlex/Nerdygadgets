@@ -6,7 +6,7 @@ public class Box {
     private ArrayList<Product> products = new ArrayList<>();
     private int id;
     private static int quantity;
-    public static double maxWeight = 10;
+    public static double maxWeight = 100;
     private double weight = 0;
 
 

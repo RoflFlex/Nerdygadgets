@@ -1,8 +1,20 @@
 package Algoritmes;
 
+import Algoritmes.TSP.BPPAlgorithm;
+import GUI.Order;
+import Klasses.Product;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FirstFit {
+public class FirstFit extends BPPAlgorithm {
+
+    @Override
+    public ArrayList<ArrayList<Product>> getBestPlacement(Order order){
+        //int iets = checkFirstFit(new int[]{(int)product.getWeight()}, 100);
+
+        return null;
+    }
     public static int checkFirstFit(int[] weightArr, int capacity) {
         int binCount = 1;
         int[] binRemCap = new int[weightArr.length]; // array of bin remaining capacities
