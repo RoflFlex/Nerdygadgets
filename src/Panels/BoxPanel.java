@@ -14,7 +14,7 @@ public class BoxPanel extends JPanel {
 
     public BoxPanel(Box box){
         setPreferredSize(new Dimension(width,height));
-        this.box = box;
+        setBox(box);
         setColor();
     }
 
@@ -24,30 +24,45 @@ public class BoxPanel extends JPanel {
         double lowBorder = Box.maxWeight * 0.25;
         double highBorder = Box.maxWeight * 0.75;
         if(lowBorder > box.getWeight() && box.getWeight() > 0){
-            setBackground(Color.green);
+            color = Color.green;
         }else if ( box.getWeight() > lowBorder && box.getWeight() < highBorder){
-            setBackground(Color.BLUE);
+            color = Color.BLUE;
         }else if(box.getWeight() > highBorder && box.getWeight()<Box.maxWeight){
-            setBackground(Color.RED);
+            color = Color.RED;
         }else{
-            setBackground(Color.WHITE);
+            color = Color.white;
         }
 
     }
 
     public void addItem(Product product){
         box.addProduct(product);
+        setColor();
+        repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        setColor();
+        setBackground(color);
         if(color == Color.WHITE){
+            g.setColor(Color.black);
             g.drawRect(0,0,getWidth()-1,getHeight()-1);
+        }else{
+            g.setColor(color);
+            g.fillRect(0,0,getWidth()-1,getHeight()-1);
         }
+        g.setColor(Color.black);
         drawStringMiddleOfPanel(box.toString(),g);
 
     }
+
+    public void addProduct(Product product){
+        box.addProduct(product);
+        repaint();
+    }
+
     private void drawStringMiddleOfPanel(String string, Graphics g) {
         String message2 = string;
         int stringWidth = 0;
@@ -78,5 +93,7 @@ public class BoxPanel extends JPanel {
 
     public void setBox(Box box) {
         this.box = box;
+        setColor();
+        repaint();
     }
 }

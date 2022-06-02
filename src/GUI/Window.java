@@ -627,7 +627,7 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         for(int i = 0; i < turningPanel.getBoxPanels().length; i++){
             if(mouseEvent.getSource() == turningPanel.getBoxPanels()[i]){
                 System.out.println(turningPanel.getBoxes().get(i));
-                setContentText(turningPanel.getBoxes().get(i).getProducts(), i);
+                setContentText(turningPanel.getBoxes().get(i).getProducts(), turningPanel.getBoxes().get(i).getId());
             }
         }
     }

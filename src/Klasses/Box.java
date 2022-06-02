@@ -9,7 +9,9 @@ public class Box {
     public static double maxWeight = 100;
     private double weight = 0;
 
-
+    public int getId() {
+        return id;
+    }
 
     public double getWeight() {
         return weight;
