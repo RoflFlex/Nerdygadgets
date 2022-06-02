@@ -27,7 +27,7 @@ public class BoxPanel extends JPanel {
             color = Color.green;
         }else if ( box.getWeight() > lowBorder && box.getWeight() < highBorder){
             color = Color.BLUE;
-        }else if(box.getWeight() > highBorder && box.getWeight()<Box.maxWeight){
+        }else if(box.getWeight() > highBorder && box.getWeight()<=Box.maxWeight){
             color = Color.RED;
         }else{
             color = Color.white;
@@ -60,6 +60,7 @@ public class BoxPanel extends JPanel {
 
     public void addProduct(Product product){
         box.addProduct(product);
+        setColor();
         repaint();
     }
 
