@@ -197,9 +197,8 @@ public class OrderManager {
         for (BoxPanel box : boxpanels) {
             if (index >= products.size())
                 break;
-            Box bin = box.getBox();
             for (Product item : products.get(index)) {
-                bin.addProduct(item);
+                box.addProduct(item);
             }
             index++;
         }
