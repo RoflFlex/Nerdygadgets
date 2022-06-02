@@ -90,6 +90,10 @@ public class TurningPanel extends JPanel {
         }
     }
 
+    public Box getFrontBox(){
+        return boxes[0].getBox();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

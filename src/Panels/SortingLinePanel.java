@@ -28,6 +28,13 @@ public class SortingLinePanel extends JPanel {
         repaint();
     }
 
+    public Product getFirst(){
+        if (productPanels.size() > 0)
+            return productPanels.get(0).getProduct();
+        else
+            return null;
+    }
+
     public void deleteItem(Product product){
         for (int i = 0 ; i < productPanels.size(); i ++){
             if(product == productPanels.get(i).getProduct()){

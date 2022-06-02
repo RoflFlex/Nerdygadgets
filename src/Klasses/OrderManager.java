@@ -168,7 +168,7 @@ public class OrderManager {
 //                    window.sortingLinePanel.remove(0);
                         myTimer.cancel();
                         window.currentGrid.deletePoints();
-                        updateDatabase();
+                        updateDatabase(true);
                     }
                 }
             }
@@ -176,9 +176,12 @@ public class OrderManager {
         myTimer.scheduleAtFixedRate(myTask, 0l, 1000);
     }
 
-    private void updateDatabase() {
+    private void updateDatabase(boolean test) {
         // update de order in database to set it as completed
-        //updateOrder(Integer.toString(order.getOrderID())); // careful with this statement
+        if (test)
+            return;
+
+        updateOrder(Integer.toString(order.getOrderID())); // careful with this statement
     }
 
     private void updateOrderLine() {
@@ -190,6 +193,7 @@ public class OrderManager {
             default -> System.out.println("No algorithm selected");
         }
         ArrayList<ArrayList<Product>> products = algorithm.getBestPlacement(order);
+
 
         TurningPanel panel = window.getTurningPanel();
         BoxPanel[] boxpanels = panel.getBoxPanels();
@@ -203,7 +207,38 @@ public class OrderManager {
             index++;
         }
 
+/*
+        Timer myTimer = new Timer();
+        TimerTask myTask = new TimerTask() {
+            @Override
+            public void run() {
+                TurningPanel tPanel = window.getTurningPanel();
+                SortingLinePanel lPanel = window.getSortingLinePanel();
+                Product first = lPanel.getFirst();
+                if (first == null)
+                    return;
 
+                Box box = tPanel.getFrontBox();
+
+                boolean contains = false;
+                for (Product product : box.getProducts()){
+                    if (product.getProductId() == first.getProductId()){
+                        contains = true;
+                        break;
+                    }
+                }
+
+                if (contains){
+                    lPanel.deleteFirst();
+                    box.addProduct(first);
+                }else{
+                    tPanel.turnTimes(1);
+                }
+            }
+        };
+
+        myTimer.scheduleAtFixedRate(myTask, 0l, 1000);
+*/
         //Product product = linePanel.getFirst();
         //System.out.println();
 
