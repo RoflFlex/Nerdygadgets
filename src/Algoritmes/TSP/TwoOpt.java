@@ -21,9 +21,6 @@ public class TwoOpt extends TSPAlgorithm{
             double bestDist = routeLength(cities);
             double newDist;
             int swaps = 1;
-//        int improve = 0;
-//        int iterations = 0;
-//        long comparisons = 0;
 
             while (swaps != 0) { //loop until no improvements are made.
                 swaps = 0;
@@ -49,11 +46,7 @@ public class TwoOpt extends TSPAlgorithm{
                         }
                     }
                 }
-//            iterations++;
             }
-//        System.out.println("Total comparisons made: " + comparisons);
-//        System.out.println("Total improvements made: " + improve);
-//        System.out.println("Total iterations made: " + iterations);
             boolean startFounded = false;
             int ind = 0;
             ArrayList<Point2D> po = new ArrayList<>();

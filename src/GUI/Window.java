@@ -52,33 +52,6 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
     private JPanel grid;
     public ItemRack currentGrid;
-//    private JButton itemButton;
-//    private JButton itemButton1;
-//    private JButton itemButton2;
-//    private JButton itemButton3;
-//    private JButton itemButton4;
-//    private JButton itemButton5;
-//    private JButton itemButton6;
-//    private JButton itemButton7;
-//    private JButton itemButton8;
-//    private JButton itemButton9;
-//    private JButton itemButton10;
-//    private JButton itemButton11;
-//    private JButton itemButton12;
-//    private JButton itemButton13;
-//    private JButton itemButton14;
-//    private JButton itemButton15;
-//    private JButton itemButton16;
-//    private JButton itemButton17;
-//    private JButton itemButton18;
-//    private JButton itemButton19;
-//    private JButton itemButton20;
-//    private JButton itemButton21;
-//    private JButton itemButton22;
-//    private JButton itemButton23;
-//    private JButton itemButton24;
-
-//    private JButton[] itemButtons;
 
     private JComboBox comportOrder;
     private JComboBox tspAlgorithmComboBox;
@@ -89,10 +62,6 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
     private JPanel waitingLine;
     public SortingLinePanel sortingLinePanel;
-//    private JButton itemButton25;
-//    private JButton itemButton26;
-//    private JButton itemButton29;
-//    private JButton itemButton28;
 
     private JComboBox comportPacking;
     private JComboBox bppAlgorithmComboBox;
@@ -192,44 +161,6 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         // setup for information button
         informationButton2.addActionListener(this);
     }
-
-    // set behaviour for other functions and what a button does when you press it
-//    private void SetOrderItemBehaviour() {
-//        itemButtons = new JButton[25];
-//        itemButtons[0] = itemButton;
-//        itemButtons[1] = itemButton1;
-//        itemButtons[2] = itemButton2;
-//        itemButtons[3] = itemButton3;
-//        itemButtons[4] = itemButton4;
-//        itemButtons[5] = itemButton5;
-//        itemButtons[6] = itemButton6;
-//        itemButtons[7] = itemButton7;
-//        itemButtons[8] = itemButton8;
-//        itemButtons[9] = itemButton9;
-//        itemButtons[10] = itemButton10;
-//        itemButtons[11] = itemButton11;
-//        itemButtons[12] = itemButton12;
-//        itemButtons[13] = itemButton13;
-//        itemButtons[14] = itemButton14;
-//        itemButtons[15] = itemButton15;
-//        itemButtons[16] = itemButton16;
-//        itemButtons[17] = itemButton17;
-//        itemButtons[18] = itemButton18;
-//        itemButtons[19] = itemButton19;
-//        itemButtons[20] = itemButton20;
-//        itemButtons[21] = itemButton21;
-//        itemButtons[22] = itemButton22;
-//        itemButtons[23] = itemButton23;
-//        itemButtons[24] = itemButton24;
-//
-//        for (int i = 0; i < 25; i++) {
-////            int finalI = i;
-//            itemButtons[i].addActionListener(this);
-//        }
-//
-//        ophalenButton.addActionListener(this);
-//        cancelButton.addActionListener(this);
-//    }
 
     private void setContentText(int id){
         int index = 0;
@@ -341,11 +272,6 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         return null;
     }
 
-    // set color of button by index
-//    public void SetColor(int index, Color color){
-//        itemButtons[index].setForeground(color);
-//    }
-
     // three functions to make new orders, use for database connection
     public void newOrder(int id){
         order = new Order(id);
@@ -382,16 +308,6 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         orders.remove(0);
     }
 
-    // set button text based on the number you give it
-//    public void setOrderItemText(int number, String text){
-//        itemButtons[number].setText(text);
-//    }
-
-    // get button text bases on the number you give it
-//    public String getOrderItemText(int number){
-//        return itemButtons[number].getText();
-//    }
-
     // set progress bar percentage from 0-100
     public void setProgressBar(int percentage){
         progressBar1.setValue(percentage);
@@ -418,90 +334,8 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
         return turningPanel;
     }
 
-    // call to add a packing item to the line
-//    public void addPackingItem(String text){
-//        if (!buttons[0]){
-//            itemButton28.setEnabled(true);
-//            itemButton28.setText(text);
-//            buttons[0] = true;
-//        }
-//        else if (!buttons[1]){
-//            itemButton29.setEnabled(true);
-//            itemButton29.setText(text);
-//            buttons[1] = true;
-//        }
-//        else if (!buttons[2]){
-//            itemButton26.setEnabled(true);
-//            itemButton26.setText(text);
-//            buttons[2] = true;
-//        }
-//        else if (!buttons[3]){
-//            itemButton25.setEnabled(true);
-//            itemButton25.setText(text);
-//            buttons[3] = true;
-//        }
-//        else{
-//            System.out.println("Line is currently full");
-//        }
-//    }
-
-    // call ones an item get removed from the line (if it gets placed in a box)
-//    public void MovePackingItems(){
-//        itemButton28.setText(itemButton29.getText());
-//        itemButton29.setText(itemButton26.getText());
-//        itemButton26.setText(itemButton25.getText());
-//        itemButton25.setText("_______");
-//
-//        for (int i = 0; i < 3; i++){
-//            buttons[i] = buttons[i + 1];
-//        }
-//        buttons[3] = false;
-//
-//        itemButton28.setEnabled(buttons[0]);
-//        itemButton29.setEnabled(buttons[1]);
-//        itemButton26.setEnabled(buttons[2]);
-//        itemButton25.setEnabled(buttons[3]);
-//    }
-//    public void enableButtons(int buttonID, String name){
-//        itemButtons[buttonID].setEnabled(true);
-//        if (name.length() > 15) {
-//            name = name.substring(0, 15);
-//        }
-//        SetOrderItemText(buttonID, name);
-//    }
-//    public void disabledButtons(int buttonID) {
-//        itemButtons[buttonID].setEnabled(false);
-//        SetOrderItemText(buttonID, "_______________");
-//    }
-
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-//        itemButtons = new JButton[25];
-//        itemButtons[0] = itemButton;
-//        itemButtons[1] = itemButton1;
-//        itemButtons[2] = itemButton2;
-//        itemButtons[3] = itemButton3;
-//        itemButtons[4] = itemButton4;
-//        itemButtons[5] = itemButton5;
-//        itemButtons[6] = itemButton6;
-//        itemButtons[7] = itemButton7;
-//        itemButtons[8] = itemButton8;
-//        itemButtons[9] = itemButton9;
-//        itemButtons[10] = itemButton10;
-//        itemButtons[11] = itemButton11;
-//        itemButtons[12] = itemButton12;
-//        itemButtons[13] = itemButton13;
-//        itemButtons[14] = itemButton14;
-//        itemButtons[15] = itemButton15;
-//        itemButtons[16] = itemButton16;
-//        itemButtons[17] = itemButton17;
-//        itemButtons[18] = itemButton18;
-//        itemButtons[19] = itemButton19;
-//        itemButtons[20] = itemButton20;
-//        itemButtons[21] = itemButton21;
-//        itemButtons[22] = itemButton22;
-//        itemButtons[23] = itemButton23;
-//        itemButtons[24] = itemButton24;
         if(actionEvent.getSource() == informationButton){
             setInformationPanel("information about order panel\n\n" +
                                         "First step is to select the correct USB connection using the COMPORT dropdown. " +
@@ -538,12 +372,6 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
                 cancelButton.setText("Cancel");
             }
         }
-
-//        for (int i = 0; i < 25; i++) {
-//            if(actionEvent.getSource() == itemButtons[i]){
-//                order.AddItem(itemButtons[i].getText(), "id", i);
-//            }
-//        }
     }
     public boolean getStop(){
         return stop;
@@ -618,20 +446,10 @@ public class Window extends JFrame implements ActionListener, PopupMenuListener,
 
     @Override
     public void popupMenuCanceled(PopupMenuEvent popupMenuEvent) {
-//        System.out.println("ss");
     }
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-//        for (int i = 0; i < 25; i ++){
-//            if(mouseEvent.getSource() == currentGrid.getProductPanels()[i]){
-//                currentGrid.getProductPanels()[i].setChosen();
-////                System.out.println("Clicked" + i);
-//                currentGrid.getProductPanels()[i].repaint();
-//            }
-//        }
-
-//        currentGrid.repaint();
         for(int i = 0; i < turningPanel.getBoxPanels().length; i++){
             if(mouseEvent.getSource() == turningPanel.getBoxPanels()[i]){
                 System.out.println(turningPanel.getBoxes().get(i));

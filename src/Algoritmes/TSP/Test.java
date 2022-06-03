@@ -29,40 +29,5 @@ public class Test {
 
         algorithm = new OwnChoice(cities);
         System.out.println("Eigen optie:" + algorithm.routeLength());
-
-//        city = TwoOpt.alternate(cities);
-//        System.out.println(Length.routeLength(city));
-//        System.out.println(city.size());
-//        System.out.println(city);
-
-//        double length =0 ;
-//        System.out.println("Initial tour length is: " + length);
-//        double time = System.currentTimeMillis() - startTime;
-//        System.out.println("Time taken to initialize is: " + time);
-//        System.out.println("Generating Nearest Neighbour Solution...");
-//        nearestN = Neighbour.nearest(cities);
-//        length = Length.routeLength(nearestN);
-//        System.out.println("Nearest neighbour solution complete, distance: " + length);
-//        System.out.println("Validating solution...");
-//        Validator.validate(nearestN);
-//        time = System.currentTimeMillis() - startTime;
-//        System.out.println("Time taken for init and Nearest Neighbour: " + time);
-//
-//        startTime = System.currentTimeMillis();
-//        System.out.println("Attempting 2-opt optimisation...");
-//        result = TwoOpt.alternate(nearestN);
-//        length = Length.routeLength(result);
-//        System.out.println("2-opt solution complete, distance: " + length);
-//        System.out.println("Validating solution...");
-//        Validator.validate(result);
-//        time = System.currentTimeMillis() - startTime;
-//        System.out.println("Time taken for 2 opt optimisation: " + time);
-//        System.out.println("Resulting tour node count: " + result.size());
-//        city = TwoOpt.alternate(cities);
-//        length = Length.routeLength(city);
-//        System.out.println(city);
-//        length = Length.routeLength(result);
-//        System.out.println("2-opt solution complete, distance: " + length);
-//        System.out.println(length);
     }
 }

@@ -11,11 +11,9 @@ public class SortingLinePanel extends JPanel {
 
     public SortingLinePanel(){
         setPreferredSize(new Dimension(415, 90));
-//        setLayout(new GridLayout(1,5,2,2));
         setLayout(new FlowLayout(FlowLayout.RIGHT));
         setBackground(Color.WHITE);
         setAlignmentX(getInsets().right);
-//        getLayout().addLayoutComponent("d");
     }
     public void addItem(Product product){
         ProductPanel productPanel = new ProductPanel(product);
@@ -24,7 +22,6 @@ public class SortingLinePanel extends JPanel {
         for(int i = productPanels.size() -1 ; i >= 0; i --){
             add(productPanels.get(i));
         }
-//        productPanel.setAlignmentX(getInsets().right);
         repaint();
     }
 

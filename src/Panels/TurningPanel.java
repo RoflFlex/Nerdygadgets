@@ -79,10 +79,6 @@ public class TurningPanel extends JPanel {
     private void turn(){
         for(int i = 0; i < quantity-1; i ++){
             Box box = boxes[i].getBox();
-//            if (i == quantity-1){
-//                boxes[i].setBox(boxes[i].getBox());
-//                boxes[i+1].setBox(box);
-//            }else{
                 boxes[i].setBox(boxes[i+1].getBox());
                 boxes[i+1].setBox(box);
 

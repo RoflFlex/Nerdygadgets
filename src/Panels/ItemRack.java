@@ -32,20 +32,6 @@ public class ItemRack extends JPanel {
         setLayout(new GridLayout(5,5,2,2));
         setBackground(Color.WHITE);
         update();
-//        ArrayList<Point2D> cities = new ArrayList<>();
-//        Random random = new Random();
-//        cities.add(new Point2D.Double(1.0,1.0));
-//        cities.add(new Point2D.Double(5.0,5.0));
-//        for (int i = 0; i < 10 ; i++){
-//            Point2D point = new Point2D.Float(random.nextInt(1,6), random.nextInt(1,6));
-//            if(!cities.contains(point)){
-//                cities.add(point);
-//            }//alter file name here.
-//        }
-//        setPoints(cities);
-
-//        productPanels[1] = new ProductPanel(new Product("USB", 1));
-
 
         setVisible(true);
     }
@@ -57,12 +43,9 @@ public class ItemRack extends JPanel {
         lineId = 0;
         for(int i = 1; i < points.size()-1; i ++){
             products[(int)((points.get(i).getY()-1)*5 + points.get(i).getX()-1)].setWillBePacked(true);
-//            productPanels[(int)((points.get(i).getX()-1)*5 + points.get(i).getY()-1)].setWilLBePacked();
         }
-//        robotIsMoving = true;
         repaint();
         nextPoint();
-//        routePanel.setPoints(points);
     }
 
     public void update(){
@@ -91,32 +74,14 @@ public class ItemRack extends JPanel {
         this.points = new ArrayList<>();
         this.robotIs = new ArrayList<>();
         lineId = 0;
-//        last = false;
-//        routePanel.deletePoints();
         repaint();
     }
 
     public void nextPoint(){
-
-
-//        routePanel.nextPoint();
-//        if(points != null && lineId == points.size()){
-//            last = true;
-//            lineId++;
-//        }else
         if(points != null && points.size() <= lineId){
             deletePoints();
         }else
         if(points != null ){
-
-//            robotIsMoving = true;
-//
-//            robotCoordinate = points.get(lineId);
-//            robotIs.add(points.get(lineId));
-//            if(lineId != 0 && lineId != points.size()){
-//                int id = (int)(points.get(lineId).getX()-1 + (points.get(lineId).getY()-1)*5);
-////                products[id].setEmpty();
-//            }
             if(lineId >= 1 && lineId < points.size()-1){
                 int id = (int)(points.get(lineId).getX()-1 + (points.get(lineId).getY()-1)*5);
                 System.out.println(id);
@@ -133,26 +98,7 @@ public class ItemRack extends JPanel {
 
         repaint();
     }
-
-
-
-//    public ArrayList<Product> getChosenProducten(){
-//        ArrayList<Product> products = new ArrayList<>();
-//
-//        for (int i = 0; i < 25; i ++){
-//            if(productPanels[i].isChosen()){
-//                products.add(productPanels[i].getProduct());
-//            }
-//        }
-//
-//        return products;
-//    }
-
     public Product getProduct(int id){
-//        if(id >= 0 && id<=24){
-//            return productPanels[id].getProduct();
-//        }
-//        return null;
         if(id >= 0 && id <= 24){
             return  products[id];
         }
@@ -201,12 +147,6 @@ public class ItemRack extends JPanel {
             int endX, endY;
             endX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(i+1).getX() - 1));
             endY = (int) (widthProduct / 2 + (heightProduct + 2) * (points.get(i+1).getY() - 1)) + 2;
-//            if (i == points.size()-1) {
-//                startX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(i).getX() - 1));
-//                startY = (int) (heightProduct / 2 + (heightProduct + 2) * (points.get(i).getY() - 1)) + 2;
-//                endX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(0).getX() - 1));
-//                startY = (int) (heightProduct / 2 + (heightProduct + 2) * (points.get(0).getY() - 1)) + 2;
-//            }
             g.drawLine(startX, startY, endX, endY);
         }
         }
@@ -220,17 +160,6 @@ public class ItemRack extends JPanel {
                 endY = (int) (widthProduct / 2 + (heightProduct + 2) * (points.get(i).getY() - 1)) + 2;
                 g.drawLine(startX, startY, endX, endY);
             }
-//            int startX = (int) (widthProduct/2+ (widthProduct+2)*(robotCoordinate.getX()-1));
-//            int startY = (int)(heightProduct/2+ (heightProduct+2)*(robotCoordinate.getY()-1)) + 2;
-//            int endX, endY;
-//            if(lineId >= points.size()){
-//                endX = widthProduct/2;
-//                endY = (widthProduct/2) +2;
-//            }else {
-//                endX = (int) (widthProduct / 2 + (widthProduct + 2) * (points.get(lineId).getX() - 1));
-//                endY = (int) (widthProduct / 2 + (heightProduct + 2) * (points.get(lineId).getY() - 1)) + 2;
-//            }
-//            g.drawLine(startX, startY, endX, endY);
         }
         if(robotIs.size()>0){
             g.setColor(Color.RED);
@@ -266,27 +195,4 @@ public class ItemRack extends JPanel {
         g.drawString(message2, xCoordinate+1, yCoordinate);
 //        currentMessage = message2;  // alternate message
     }
-
-//    public ProductPanel[] getProductPanels() {
-//        return productPanels;
-//    }
-
-    //    public ItemRack(Window window){
-//     //   Database.Database waardes ophalen
-//        // Kleuren
-//        // Disabelen
-//        ArrayList<ArrayList<String>> Stellingen = new ArrayList<>();
-//        try {
-//            Stellingen = Database.executeQuery("SELECT StellingID,StockItemName FROM nerdygadgets.stockitems\n" +
-//                    "WHERE StellingID IS NOT NULL;");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println(Stellingen);
-//        for (ArrayList<String> stelling: Stellingen) {
-//           // for (String stellingID:stelling) {
-//                window.enableButtons(Integer.parseInt(stelling.get(0)),stelling.get(1));
-//            //}
-//        }
-//    }
 }

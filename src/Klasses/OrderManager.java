@@ -187,6 +187,7 @@ public class OrderManager {
 //                    window.sortingLinePanel.remove(0);
                         myTimer.cancel();
                         newPath(points);
+                        updateDatabase(false);
                     }
                 }
             }

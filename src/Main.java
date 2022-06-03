@@ -24,11 +24,7 @@ public class Main {
         window.addOrder("24", "100", 24, 100);
         window.finishOrder();
 
-//        for (int i = 0; i < 25; i++) {
-//            window.disabledButtons(i);
-//        }
         Database.getOrders(window);
-//        new ItemRack(window);
 
         // timer for checking the database
         Timer myTimer = new Timer ();
