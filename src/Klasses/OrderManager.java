@@ -26,10 +26,12 @@ public class OrderManager {
 
     private Window window;
     private Order order;
+    private Order oldOrder;
     private Robot robot;
 
     private int index = 0;
     private ArrayList<Product> products;
+    private ArrayList<Point2D>points2D;
 
     private boolean checkUp() {
         // check if a comport is selected
@@ -53,8 +55,24 @@ public class OrderManager {
         this.window = window;
         this.robot = this.window.orderRobot;
         checkOrder();
-    }
 
+        Timer myTimer = new Timer();
+        TimerTask myTask = new TimerTask() {
+            @Override
+            public void run() {
+                order = window.getSelectedOrder();
+                if (!(points2D == null)) {
+                    if (index == points2D.size() && !(order.equals(oldOrder)) && !(index == 0)) {
+                        newPath(points2D);
+                        //checkOrder();
+                    }
+                }
+            }
+        };
+
+        myTimer.scheduleAtFixedRate(myTask, 0l, 1000);
+
+    }
     private void setOrder(Order order) {
         this.order = order;
     }
@@ -66,6 +84,7 @@ public class OrderManager {
             @Override
             public void run() {
                 order = window.getSelectedOrder();
+                oldOrder = order;
                 if (order != null) {
                     myTimer.cancel();
                     updateOrderLine();
@@ -127,6 +146,7 @@ public class OrderManager {
     }
 
     private void doPath(ArrayList<Point2D> points) {
+        points2D = points;
         index++;
         String information = (int) points.get(index).getX() + "," + (int) points.get(index).getY();
         window.currentGrid.setPoints(points);
@@ -145,21 +165,20 @@ public class OrderManager {
                     response = response.trim();
 //                response = robot.getText().substring(response.length()-5);
                     System.out.println(response);
-                    if (response.equalsIgnoreCase("ue") || response.equalsIgnoreCase("true")) {
+                    if (response.equalsIgnoreCase("ue") || response.equalsIgnoreCase("rue") || response.equalsIgnoreCase("true")) {
                         SortingLinePanel panel = window.getSortingLinePanel();
                         try {
                             panel.addItem(products.get(index));
-                        } catch (Exception E) {
-                        }
+                        } catch (Exception E) {}
                         index++;
                         if (index < points.size()) {
                             information = (int) points.get(index).getX() + "," + (int) points.get(index).getY();
                             robot.sendInformation(information);
                             System.out.println(information);
                             window.currentGrid.nextPoint();
-                            System.out.println("tRUE GEKREGEN");
+                            System.out.println("true gekregen");
                         }
-                    } else if (response.equalsIgnoreCase("se") || response.equalsIgnoreCase("alse")) {
+                    } else if (response.equalsIgnoreCase("se") || response.equalsIgnoreCase("lse") || response.equalsIgnoreCase("alse")) {
                         robot.sendInformation(information);
                         System.out.println("false gekregen");
                     }
@@ -167,8 +186,7 @@ public class OrderManager {
                     if (index >= points.size()) {
 //                    window.sortingLinePanel.remove(0);
                         myTimer.cancel();
-                        window.currentGrid.deletePoints();
-                        updateDatabase(true);
+                        newPath(points);
                     }
                 }
             }
@@ -243,5 +261,15 @@ public class OrderManager {
         //System.out.println();
 
 
+    }
+    private void newPath(ArrayList<Point2D> points){
+        window.currentGrid.deletePoints();
+        updateDatabase(true);
+        order = window.getSelectedOrder();
+        if (index == points.size() && !(order.equals(oldOrder))) {
+            index = 0;
+            oldOrder = order;
+            checkOrder();
+        }
     }
 }
