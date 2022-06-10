@@ -111,7 +111,7 @@ public class OrderManager {
             product.setWeight((int) item[4]);
             products.add(product);
         }
-        // Gaan wij tegen hem niks zeggen? Wat wil jij dan? Wat ben je toch weer goed bezig!
+        
         TSPAlgorithm tspAlgorithm = window.tspAlgorithm;
         switch (window.getAlgoritmOrder()) {
             case "Nearest Insertion":

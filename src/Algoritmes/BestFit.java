@@ -64,21 +64,21 @@ public class BestFit extends BPPAlgorithm {
 
     }
 
-    public static void main(String[] args)
-    {
-        int []weight = {2,8,9,2,4,5,7,8,7,4,3,2,4,5,4,6,7,5,4,2,4,6,7,8,9,6,4,3,3,4,5,6,4,8,9,5,6,4,3,2,3,3,4,8,5,6,6};
-        int totalWeight = 0;
-        for (int i = 0; i < weight.length; i++) {
-            totalWeight += weight[i];
-        }
-
-        int max = 10; //max weigth per bin
-        int totalItems = weight.length;
-
-        FirstFit f = new FirstFit();
-        System.out.println("Je hebt "
-                 + bestFit(weight, totalItems, max) + " bins nodig");
-        System.out.println("Je hebt "
-                + f.checkFirstFit(weight, max) + " bins nodig");
-    }
+//    public static void main(String[] args)
+//    {
+//        int []weight = {2,8,9,2,4,5,7,8,7,4,3,2,4,5,4,6,7,5,4,2,4,6,7,8,9,6,4,3,3,4,5,6,4,8,9,5,6,4,3,2,3,3,4,8,5,6,6};
+//        int totalWeight = 0;
+//        for (int i = 0; i < weight.length; i++) {
+//            totalWeight += weight[i];
+//        }
+//
+//        int max = 10; //max weigth per bin
+//        int totalItems = weight.length;
+//
+//        FirstFit f = new FirstFit();
+//        System.out.println("Je hebt "
+//                 + bestFit(weight, totalItems, max) + " bins nodig");
+//        System.out.println("Je hebt "
+//                + f.checkFirstFit(weight, max) + " bins nodig");
+//    }
 }
